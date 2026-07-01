@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react";
 
 const testimonials = [
   {
@@ -30,16 +30,60 @@ const testimonials = [
   },
 ];
 
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 export function Testimonials() {
   return (
-    <section className="py-24 lg:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-24 lg:py-32 bg-white overflow-hidden">
+
+      {/* Dot grid */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, rgba(28,28,30,0.055) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+
+      {/* Decorative quote SVGs */}
+      <svg
+        aria-hidden="true"
+        className="absolute top-8 left-6 w-32 h-32 text-[#0F5132]/6 pointer-events-none select-none"
+        viewBox="0 0 100 80"
+        fill="currentColor"
+      >
+        <path d="M0 80V48C0 20 14 6 42 0l6 12C30 16 22 26 22 40h20v40H0zm58 0V48C58 20 72 6 100 0l6 12c-18 4-26 14-26 28h20v40H58z" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        className="absolute bottom-8 right-6 w-32 h-32 text-[#C9A24B]/6 pointer-events-none select-none rotate-180"
+        viewBox="0 0 100 80"
+        fill="currentColor"
+      >
+        <path d="M0 80V48C0 20 14 6 42 0l6 12C30 16 22 26 22 40h20v40H0zm58 0V48C58 20 72 6 100 0l6 12c-18 4-26 14-26 28h20v40H58z" />
+      </svg>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+          className="text-center max-w-2xl mx-auto mb-16"
+        >
           <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
             Client Results
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-[#1C1C1E] leading-tight mb-4">
+          <h2
+            className="text-4xl lg:text-5xl font-bold leading-tight mb-4"
+            style={{
+              background: "linear-gradient(135deg, #1C1C1E 60%, #0F5132 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
             Real businesses.
             <br />
             Real results.
@@ -47,56 +91,51 @@ export function Testimonials() {
           <p className="text-lg text-[#1C1C1E]/60">
             Don't take our word for it — here's what local business owners say after their first 90 days with Kairo.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Grid */}
+        {/* Cards */}
         <div className="grid md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              className="relative bg-[#FAF9F6] rounded-2xl p-8 border border-[#1C1C1E]/6 flex flex-col"
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.55, delay: i * 0.1, ease }}
+              whileHover={{ y: -5, transition: { duration: 0.2, ease: "easeOut" } }}
+              className="group relative bg-[#FAF9F6] rounded-2xl p-8 border border-[#1C1C1E]/6 flex flex-col overflow-hidden hover:shadow-xl hover:shadow-[#1C1C1E]/7 transition-shadow duration-300"
             >
-              {/* Quote icon */}
-              <Quote
-                size={28}
-                className="text-[#0F5132]/15 mb-4 -scale-x-100"
-                fill="currentColor"
-              />
+              {/* Top accent */}
+              <div className="absolute top-0 inset-x-0 h-[2.5px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-2xl bg-gradient-to-r from-[#0F5132] to-[#C9A24B]" />
 
               {/* Stars */}
-              <div className="flex items-center gap-1 mb-4">
+              <div className="flex items-center gap-1 mb-5">
                 {[...Array(t.rating)].map((_, j) => (
-                  <Star
+                  <motion.div
                     key={j}
-                    size={14}
-                    className="fill-[#C9A24B] text-[#C9A24B]"
-                  />
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.1 + j * 0.06 }}
+                  >
+                    <Star size={14} className="fill-[#C9A24B] text-[#C9A24B]" />
+                  </motion.div>
                 ))}
               </div>
 
               {/* Quote */}
               <blockquote className="text-sm text-[#1C1C1E]/70 leading-relaxed flex-1 mb-6">
-                "{t.quote}"
+                &ldquo;{t.quote}&rdquo;
               </blockquote>
 
               {/* Attribution */}
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#0F5132]/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-[#0F5132]">
-                    {t.name[0]}
-                  </span>
+                  <span className="text-sm font-bold text-[#0F5132]">{t.name[0]}</span>
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-[#1C1C1E]">
-                    {t.name}
-                  </div>
-                  <div className="text-xs text-[#1C1C1E]/50">
-                    {t.title}, {t.business}
-                  </div>
+                  <div className="text-sm font-semibold text-[#1C1C1E]">{t.name}</div>
+                  <div className="text-xs text-[#1C1C1E]/45">{t.title}, {t.business}</div>
                 </div>
               </div>
             </motion.div>
