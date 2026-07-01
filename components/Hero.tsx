@@ -98,8 +98,9 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.75 }}
               className="text-base text-white/45 leading-relaxed mb-8 max-w-sm"
             >
-              We build AI-powered websites, automate your client follow-up, and
-              put your Google reviews on autopilot — done for you.
+              We build AI-powered websites, deploy voice agents that answer
+              every call, automate your follow-up, and grow your Google reviews
+              — all done for you.
             </motion.p>
 
             {/* CTAs */}

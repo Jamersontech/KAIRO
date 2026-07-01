@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Globe, MessageSquare, Star, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Globe, Phone, MessageSquare, Star, ArrowRight, CheckCircle2 } from "lucide-react";
 import { FinalCTA } from "@/components/FinalCTA";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Explore Kairo's three core services: AI-built websites, SMS & email automation, and Google review generation for local businesses.",
+    "Explore Kairo's four core services: AI-built websites, AI voice agents, SMS & email automation, and Google review generation for local businesses.",
 };
 
 const services = [
@@ -26,7 +26,7 @@ const services = [
       },
       {
         title: "Design & Build",
-        body: "Our AI-assisted workflow generates a custom design in hours. We refine it, add your content, and build it out in Next.js for blazing-fast performance.",
+        body: "Our AI-assisted workflow generates a custom design in hours. We refine it, add your content, and build it out for blazing-fast performance.",
       },
       {
         title: "SEO & Launch",
@@ -47,10 +47,46 @@ const services = [
     ],
   },
   {
+    id: "voice",
+    icon: Phone,
+    iconColor: "#2D4B8E",
+    label: "Service 02",
+    title: "AI Voice Agents",
+    headline: "Every call answered. Every lead captured. 24/7.",
+    description:
+      "Most local businesses lose leads the moment a call goes to voicemail. Our AI voice agents answer every call instantly — day or night — qualifying the lead, answering common questions, and booking appointments without any human involvement. You wake up to a full inbox of transcripts, not missed opportunities.",
+    steps: [
+      {
+        title: "Build & Train",
+        body: "We build a custom AI voice agent trained on your specific business — your services, pricing, FAQs, availability, and how you like to be introduced.",
+      },
+      {
+        title: "Connect to Your Number",
+        body: "We connect the agent to your existing business phone number (or provision a new one). It answers calls when you're unavailable or after hours — you decide the rules.",
+      },
+      {
+        title: "Qualify, Answer & Book",
+        body: "The agent qualifies leads, answers common questions, and books appointments directly into your calendar. Complex calls are seamlessly transferred to a human.",
+      },
+      {
+        title: "Transcripts & Reports",
+        body: "Every call produces a full transcript and AI-generated summary delivered to your inbox or CRM. You always know who called and why.",
+      },
+    ],
+    outcomes: [
+      "24/7 call answering — no voicemail",
+      "Lead qualification on every call",
+      "Appointment booking via voice",
+      "Seamless human handoff when needed",
+      "Full call transcripts & summaries",
+      "CRM and calendar integration",
+    ],
+  },
+  {
     id: "automation",
     icon: MessageSquare,
     iconColor: "#1C1C1E",
-    label: "Service 02",
+    label: "Service 03",
     title: "SMS & Email Automation",
     headline: "Follow up in seconds. Nurture for months. All automatic.",
     description:
@@ -86,7 +122,7 @@ const services = [
     id: "reviews",
     icon: Star,
     iconColor: "#C9A24B",
-    label: "Service 03",
+    label: "Service 04",
     title: "Google Review Generation",
     headline: "From 3 stars to market leader — automatically.",
     description:
@@ -131,16 +167,16 @@ export default function ServicesPage() {
               What We Build
             </span>
             <h1 className="text-5xl lg:text-6xl font-bold text-[#1C1C1E] leading-tight mb-5">
-              Three systems that work
+              Four systems that work
               <br />
               together to grow your business.
             </h1>
             <p className="text-xl text-[#1C1C1E]/60 leading-relaxed mb-8 max-w-2xl">
               Most agencies sell you one thing. Kairo delivers the complete
-              infrastructure — website, automation, and reputation — so every
-              piece reinforces the others.
+              infrastructure — website, voice agents, automation, and reputation
+              — so every piece reinforces the others.
             </p>
-            <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-3 flex-wrap">
               {services.map((s) => (
                 <a
                   key={s.id}
@@ -170,7 +206,7 @@ export default function ServicesPage() {
                 <div className="flex items-center gap-3 mb-6">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: `${service.iconColor}15` }}
+                    style={{ backgroundColor: `${service.iconColor}18` }}
                   >
                     <Icon size={22} style={{ color: service.iconColor }} />
                   </div>

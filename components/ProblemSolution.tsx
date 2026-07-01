@@ -11,7 +11,7 @@ const problems = [
 ];
 
 const solutions = [
-  "Automated texts go out the moment a lead fills a form — before you even see the notification.",
+  "Our AI voice agent answers every call 24/7, qualifies the lead, and books the appointment — even when you're unavailable.",
   "A conversion-focused website built by AI and refined by our team — live in 48 hours.",
   "Review requests go out automatically after every appointment. Your reputation builds itself.",
   "Nurture sequences run in the background, following up for weeks without you lifting a finger.",

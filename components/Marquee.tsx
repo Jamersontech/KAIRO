@@ -2,11 +2,13 @@
 
 const items = [
   "AI-Built Websites",
+  "AI Voice Agents",
   "SMS Automation",
   "Google Reviews",
   "Lead Follow-Up",
   "48-Hour Launch",
   "Reputation Management",
+  "24/7 Call Answering",
   "Done For You",
   "Conversion Focused",
 ];

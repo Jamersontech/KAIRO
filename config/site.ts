@@ -37,6 +37,7 @@ export const pricingConfig = {
       features: [
         "AI-built conversion website (up to 5 pages)",
         "Mobile-first, SEO-optimized design",
+        "AI voice agent (after-hours answering)",
         "1 automated SMS follow-up sequence",
         "Google review request automation",
         "Monthly performance report",
@@ -54,6 +55,7 @@ export const pricingConfig = {
       features: [
         "Everything in Starter",
         "Up to 10 pages + landing pages",
+        "AI voice agent (24/7 + lead qualification)",
         "SMS & email nurture sequences (3 flows)",
         "Appointment reminder automation",
         "Review monitoring & response templates",
