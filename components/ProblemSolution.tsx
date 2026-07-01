@@ -1,171 +1,195 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { Phone, Globe, Star, MessageSquare } from "lucide-react";
+import { AnimatedDotGrid } from "./AnimatedDotGrid";
 
-const problems = [
-  "A potential client calls — you miss it. They move on to your competitor in minutes.",
-  "Your website looks like it was built in 2015. Visitors leave before they read a word.",
-  "You have 12 Google reviews. The shop next door has 340. They win every search.",
-  "You follow up manually — when you remember — and half the time it's too late.",
-];
-
-const solutions = [
-  "Our AI voice agent answers every call 24/7, qualifies the lead, and books the appointment — even when you're unavailable.",
-  "A conversion-focused website built by AI and refined by our team — live in 48 hours.",
-  "Review requests go out automatically after every appointment. Your reputation builds itself.",
-  "Nurture sequences run in the background, following up for weeks without you lifting a finger.",
+const pairs = [
+  {
+    icon: Phone,
+    problem:
+      "A potential client calls at 7pm. No one answers. They call your competitor, who picks up immediately. That's a $2,000 job you'll never know you lost.",
+    solution:
+      "Your AI voice agent answers every call in under 2 rings, 24/7. It qualifies the lead, answers their questions, and books the appointment — even while you sleep.",
+    stat: "78%",
+    statNote: "of buyers choose whoever responds first",
+  },
+  {
+    icon: Globe,
+    problem:
+      "Your website looks like it was built in 2015. Visitors leave in under 10 seconds. You're invisible on Google and losing clients to businesses you're better than.",
+    solution:
+      "A conversion-focused website built by AI, refined by our team, live in 48 hours. Every element engineered to turn visitors into booked appointments.",
+    stat: "48hrs",
+    statNote: "from brief to fully live site",
+  },
+  {
+    icon: Star,
+    problem:
+      "You have 24 Google reviews. The shop down the street has 340. They dominate local search and get 3× the call volume — entirely because of reputation.",
+    solution:
+      "Automated review requests go out after every completed job. Your rating climbs every single week without you lifting a finger. More stars means more calls.",
+    stat: "200+",
+    statNote: "reviews generated for our clients",
+  },
+  {
+    icon: MessageSquare,
+    problem:
+      "You follow up manually, when you remember. Half the time it's too late and the lead has gone cold. You're leaving real money on the table every week.",
+    solution:
+      "The moment a lead comes in, an SMS fires in under 60 seconds. Nurture sequences run in the background, converting prospects for weeks — without your effort.",
+    stat: "60s",
+    statNote: "average lead response time",
+  },
 ];
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.08, ease },
-  }),
-};
-
 export function ProblemSolution() {
   return (
-    <section className="relative py-24 lg:py-32 bg-white overflow-hidden">
+    <section className="relative py-24 lg:py-32 bg-[#0D0D0F] overflow-hidden">
+      <AnimatedDotGrid isDark />
 
-      {/* Subtle dot grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(28,28,30,0.055) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-
-      {/* Accent bleed — top left */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-[#0F5132]/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[280px] bg-[#0F5132]/8 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-[#C9A24B]/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="max-w-2xl mb-16"
+          className="max-w-3xl mb-16"
         >
           <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
-            The Problem
+            The Reality
           </span>
-          <h2
-            className="text-4xl lg:text-5xl font-bold leading-tight mb-4"
-            style={{
-              background: "linear-gradient(135deg, #1C1C1E 55%, #0F5132 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Great businesses lose clients
-            <br />
-            to faster, louder competitors.
+          <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
+            Great businesses lose clients to{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg, #C9A24B 0%, #E8C87A 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              faster, louder
+            </span>{" "}
+            competitors.
           </h2>
-          <p className="text-lg text-[#1C1C1E]/60 leading-relaxed">
+          <p className="text-lg text-white/45 leading-relaxed">
             It's not about being better. It's about being{" "}
-            <em>present</em> — online, responsive, and trusted. Most local
-            businesses aren't, and leads slip away every day.
+            <em className="text-white/65 not-italic font-medium">present</em> — online,
+            responsive, and trusted. Here's what changes the moment you add Kairo.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Problems */}
-          <div className="bg-[#FAF9F6] rounded-2xl p-8 border border-[#1C1C1E]/5">
-            <div className="flex items-center gap-2 mb-6">
-              <AlertCircle size={18} className="text-red-400" />
-              <span className="text-sm font-semibold text-[#1C1C1E]/60 uppercase tracking-wider">
-                Without Kairo
-              </span>
-            </div>
-            <div className="space-y-4">
-              {problems.map((p, i) => (
-                <motion.div
-                  key={i}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-red-50 border border-red-100"
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 flex-shrink-0" />
-                  <p className="text-sm text-[#1C1C1E]/70 leading-relaxed">{p}</p>
-                </motion.div>
-              ))}
-            </div>
+        {/* Column labels — desktop only */}
+        <div className="hidden md:grid md:grid-cols-[1fr_52px_1fr] gap-0 mb-3 px-1">
+          <div className="flex items-center gap-2 pl-5">
+            <div className="w-2 h-2 rounded-full bg-red-500/70" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-red-400/60">
+              Without Kairo
+            </span>
           </div>
-
-          {/* Solutions */}
-          <div className="bg-[#0F5132] rounded-2xl p-8">
-            <div className="flex items-center gap-2 mb-6">
-              <CheckCircle2 size={18} className="text-[#C9A24B]" />
-              <span className="text-sm font-semibold text-white/60 uppercase tracking-wider">
-                With Kairo
-              </span>
-            </div>
-            <div className="space-y-4">
-              {solutions.map((s, i) => (
-                <motion.div
-                  key={i}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-white/10 border border-white/10"
-                >
-                  <CheckCircle2
-                    size={16}
-                    className="text-[#C9A24B] mt-0.5 flex-shrink-0"
-                  />
-                  <p className="text-sm text-white/80 leading-relaxed">{s}</p>
-                </motion.div>
-              ))}
-            </div>
+          <div />
+          <div className="flex items-center gap-2 pl-5">
+            <div className="w-2 h-2 rounded-full bg-[#0F5132]" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#4CAF80]/70">
+              With Kairo
+            </span>
           </div>
         </div>
 
-        {/* Stat callout */}
-        <div className="mt-8 grid sm:grid-cols-2 gap-4">
-          {[
-            {
-              stat: "78%",
-              text: "of customers choose the",
-              highlight: "first business to respond",
-              rest: "to their inquiry.",
-            },
-            {
-              stat: "50%",
-              text: "more inbound calls go to businesses with",
-              highlight: "4.5+ star Google ratings",
-              rest: "vs. competitors.",
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={item.stat}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease }}
-              className="bg-[#1C1C1E] rounded-2xl p-6 flex items-center gap-5"
-            >
-              <span className="text-4xl font-bold text-[#C9A24B] flex-shrink-0">{item.stat}</span>
-              <p className="text-sm text-white/60 leading-snug">
-                {item.text}{" "}
-                <strong className="text-white">{item.highlight}</strong>{" "}
-                {item.rest}
-              </p>
-            </motion.div>
-          ))}
+        {/* Transformation rows */}
+        <div className="space-y-2.5">
+          {pairs.map((pair, i) => {
+            const Icon = pair.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.52, delay: i * 0.07, ease }}
+                className="grid md:grid-cols-[1fr_52px_1fr] overflow-hidden rounded-2xl"
+              >
+                {/* Problem */}
+                <div className="group flex items-start gap-4 bg-[#150E0E] hover:bg-[#1A1010] border border-red-900/20 hover:border-red-900/35 transition-all duration-300 p-6 md:rounded-l-2xl rounded-t-2xl md:rounded-tr-none">
+                  <div className="w-[3px] self-stretch bg-red-500/25 rounded-full flex-shrink-0 group-hover:bg-red-500/55 transition-colors duration-300" />
+                  <div>
+                    <div className="flex items-center gap-2 mb-2.5 md:hidden">
+                      <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-red-400/50">
+                        Without Kairo
+                      </span>
+                    </div>
+                    <p className="text-sm text-white/50 leading-relaxed">{pair.problem}</p>
+                  </div>
+                </div>
+
+                {/* Center connector — desktop */}
+                <div className="hidden md:flex flex-col items-center justify-center bg-[#111113] border-y border-white/4 gap-2.5">
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: "#C9A24B14" }}
+                  >
+                    <Icon size={15} className="text-[#C9A24B]" />
+                  </div>
+                  <div className="w-px h-4 bg-white/10 rounded-full" />
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                    <path d="M1 4h10M7 1l4 3-4 3" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+
+                {/* Solution */}
+                <div className="group flex items-start gap-4 bg-[#0A140E] hover:bg-[#0D1A11] border border-[#0F5132]/20 hover:border-[#0F5132]/45 transition-all duration-300 p-6 md:rounded-r-2xl rounded-b-2xl md:rounded-bl-none">
+                  <div className="w-[3px] self-stretch bg-[#0F5132]/35 rounded-full flex-shrink-0 group-hover:bg-[#0F5132]/75 transition-colors duration-300" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2.5 md:hidden">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#0F5132]" />
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-[#4CAF80]/60">
+                        With Kairo
+                      </span>
+                    </div>
+                    <p className="text-sm text-white/72 leading-relaxed mb-4">{pair.solution}</p>
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-2xl font-black text-[#C9A24B] leading-none">
+                        {pair.stat}
+                      </span>
+                      <span className="text-[10px] text-white/30 leading-snug">{pair.statNote}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
+
+        {/* Bottom CTA nudge */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3, ease }}
+          className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#111113] rounded-2xl p-6 border border-white/5"
+        >
+          <p className="text-sm text-white/45 text-center sm:text-left">
+            Every one of these problems has a solution that's already running for our clients.
+          </p>
+          <a
+            href="/pricing"
+            className="flex-shrink-0 inline-flex items-center gap-2 bg-[#0F5132] hover:bg-[#1a6b44] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors duration-200"
+          >
+            See how it works
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </motion.div>
       </div>
     </section>
   );

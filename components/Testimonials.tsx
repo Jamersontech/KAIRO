@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import { AnimatedDotGrid } from "./AnimatedDotGrid";
 
 const testimonials = [
   {
@@ -36,14 +37,7 @@ export function Testimonials() {
   return (
     <section className="relative py-24 lg:py-32 bg-white overflow-hidden">
 
-      {/* Dot grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(28,28,30,0.055) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
+      <AnimatedDotGrid />
 
       {/* Decorative quote SVGs */}
       <svg
