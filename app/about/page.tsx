@@ -2,35 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Shield, Zap, Users, Award } from "lucide-react";
 import { FinalCTA } from "@/components/FinalCTA";
+import { AboutValuesSection } from "@/components/AboutValuesSection";
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "Learn about Kairo — the AI automation agency helping local businesses compete and grow.",
 };
-
-const values = [
-  {
-    icon: Zap,
-    title: "Speed as a feature",
-    body: "We don't do six-week website builds. Local businesses can't afford to wait — which is why we've built a process that launches in 48 hours without sacrificing quality.",
-  },
-  {
-    icon: Users,
-    title: "Built for real businesses",
-    body: "We work with dentists, contractors, and salon owners — not Fortune 500 companies. Everything we build is designed for the realities of running a local business.",
-  },
-  {
-    icon: Shield,
-    title: "Transparent and accountable",
-    body: "No vanity metrics. No inflated promises. We show you exactly what's working with plain-English monthly reports and give you honest assessments when something needs to change.",
-  },
-  {
-    icon: Award,
-    title: "Outcomes, not outputs",
-    body: "We're not an agency that delivers a website and disappears. We measure our success by your leads, your reviews, and your revenue — and we stay to make it happen.",
-  },
-];
 
 const trustSignals = [
   { value: "50+", label: "Local businesses served" },
@@ -90,10 +68,10 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-5 text-lg text-[#1C1C1E]/60 leading-relaxed">
             <p>
-              The dentist who's been in your neighborhood for 20 years shouldn't
+              The dentist who&apos;s been in your neighborhood for 20 years shouldn&apos;t
               lose a new patient to a corporate chain just because they have a
               better website and more Google reviews. The contractor who does
-              beautiful work shouldn't watch leads go cold because they couldn't
+              beautiful work shouldn&apos;t watch leads go cold because they couldn&apos;t
               respond in the first 5 minutes.
             </p>
             <p>
@@ -106,40 +84,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-24 bg-[#FAF9F6]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
-              How We Work
-            </span>
-            <h2 className="text-4xl font-bold text-[#1C1C1E]">
-              What we believe
-            </h2>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {values.map((value) => {
-              const Icon = value.icon;
-              return (
-                <div
-                  key={value.title}
-                  className="bg-white rounded-2xl p-8 border border-[#1C1C1E]/6 shadow-sm"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-[#0F5132]/10 flex items-center justify-center mb-5">
-                    <Icon size={20} className="text-[#0F5132]" />
-                  </div>
-                  <h3 className="text-lg font-bold text-[#1C1C1E] mb-2">
-                    {value.title}
-                  </h3>
-                  <p className="text-sm text-[#1C1C1E]/60 leading-relaxed">
-                    {value.body}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Values — client component for animations */}
+      <AboutValuesSection />
 
       {/* CTA */}
       <section className="py-20 bg-white">
