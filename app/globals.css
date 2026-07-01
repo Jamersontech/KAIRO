@@ -7,6 +7,7 @@
   --color-emerald-hover: #16733f;
   --color-gold: #c9a24b;
   --color-gold-light: #d4b060;
+  --color-void: #0d0d0f;
 }
 
 html {
@@ -28,4 +29,75 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-emerald);
   outline-offset: 3px;
+}
+
+/* ── KAIRO wordmark shimmer ───────────────────── */
+.kairo-wordmark {
+  background: linear-gradient(
+    110deg,
+    #ffffff 0%,
+    #e8e4d9 18%,
+    #c9a24b 32%,
+    #ffffff 45%,
+    #ffffff 55%,
+    #c9a24b 68%,
+    #e8e4d9 82%,
+    #ffffff 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: kairo-shimmer 7s ease-in-out infinite;
+}
+
+@keyframes kairo-shimmer {
+  0%   { background-position: 100% center; }
+  50%  { background-position: 0%   center; }
+  100% { background-position: 100% center; }
+}
+
+/* ── Floating gradient orbs ───────────────────── */
+@keyframes blob-a {
+  0%, 100% { transform: translate(0px,   0px)  scale(1);    }
+  33%       { transform: translate(28px, -22px) scale(1.07); }
+  66%       { transform: translate(-18px, 16px) scale(0.94); }
+}
+
+@keyframes blob-b {
+  0%, 100% { transform: translate(0px,  0px)  scale(1);    }
+  33%       { transform: translate(-24px, 20px) scale(1.05); }
+  66%       { transform: translate(20px, -14px) scale(0.96); }
+}
+
+.animate-blob-a { animation: blob-a  9s ease-in-out infinite; }
+.animate-blob-b { animation: blob-b 11s ease-in-out infinite 2.5s; }
+
+/* ── Marquee ticker ───────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee-scroll 32s linear infinite;
+  will-change: transform;
+}
+
+/* ── CTA glow pulse ───────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px 4px rgba(15,81,50,0.35); }
+  50%       { box-shadow: 0 0 36px 8px rgba(15,81,50,0.55); }
+}
+
+.animate-glow { animation: glow-pulse 2.5s ease-in-out infinite; }
+
+/* ── Divider line draw ────────────────────────── */
+@keyframes draw-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.animate-draw-line {
+  animation: draw-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
 }

@@ -16,13 +16,18 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+// Pages whose hero is dark (need white nav text when transparent)
+const darkHeroRoutes = ["/"];
+
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  const isDarkHero = darkHeroRoutes.includes(pathname);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -31,23 +36,33 @@ export function Header() {
     setIsOpen(false);
   }, [pathname]);
 
+  const transparentDark = isDarkHero && !scrolled;
+
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-[#FAF9F6]/95 backdrop-blur-md shadow-sm border-b border-[#1C1C1E]/8"
-          : "bg-transparent"
+          ? "bg-[#FAF9F6]/96 backdrop-blur-md shadow-sm border-b border-[#1C1C1E]/8"
+          : isDarkHero
+          ? "bg-transparent"
+          : "bg-[#FAF9F6]/90 backdrop-blur-md"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-[#0F5132] flex items-center justify-center">
-              <span className="text-white font-bold text-sm tracking-tight">K</span>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="w-9 h-9 rounded-xl bg-[#0F5132] flex items-center justify-center shadow-lg shadow-[#0F5132]/30 group-hover:shadow-[#0F5132]/50 transition-shadow duration-200">
+              <span className="text-white font-black text-base tracking-tight">K</span>
             </div>
-            <span className="text-[#1C1C1E] font-semibold text-lg tracking-tight">
+            <span
+              className={cn(
+                "font-bold text-xl tracking-tight transition-colors duration-300",
+                transparentDark ? "text-white" : "text-[#1C1C1E]"
+              )}
+            >
               {siteConfig.name}
             </span>
           </Link>
@@ -61,8 +76,12 @@ export function Header() {
                 className={cn(
                   "text-sm font-medium transition-colors duration-200",
                   pathname === link.href
-                    ? "text-[#0F5132]"
-                    : "text-[#1C1C1E]/70 hover:text-[#1C1C1E]"
+                    ? transparentDark
+                      ? "text-[#C9A24B]"
+                      : "text-[#0F5132]"
+                    : transparentDark
+                    ? "text-white/60 hover:text-white"
+                    : "text-[#1C1C1E]/60 hover:text-[#1C1C1E]"
                 )}
               >
                 {link.label}
@@ -71,19 +90,29 @@ export function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center">
             <Link
               href="/contact"
-              className="inline-flex items-center px-5 py-2.5 rounded-lg bg-[#0F5132] text-white text-sm font-semibold hover:bg-[#16733f] transition-colors duration-200"
+              className={cn(
+                "inline-flex items-center px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200",
+                transparentDark
+                  ? "bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-sm"
+                  : "bg-[#0F5132] text-white hover:bg-[#16733f] shadow-sm"
+              )}
             >
               Free Website Audit
             </Link>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg text-[#1C1C1E] hover:bg-[#1C1C1E]/5 transition-colors"
+            className={cn(
+              "lg:hidden p-2 rounded-lg transition-colors",
+              transparentDark
+                ? "text-white hover:bg-white/10"
+                : "text-[#1C1C1E] hover:bg-[#1C1C1E]/5"
+            )}
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
