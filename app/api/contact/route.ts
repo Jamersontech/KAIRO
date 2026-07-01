@@ -1,66 +1,44 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase";
 
-interface ContactPayload {
-  name: string;
-  business: string;
-  email: string;
-  phone?: string;
-  message: string;
-}
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
+  let body: Record<string, string>;
   try {
-    const body: ContactPayload = await request.json();
-    const { name, business, email, message } = body;
-
-    // Server-side validation
-    if (!name?.trim() || !business?.trim() || !message?.trim()) {
-      return NextResponse.json(
-        { error: "Missing required fields." },
-        { status: 400 }
-      );
-    }
-    if (!email?.trim() || !isValidEmail(email)) {
-      return NextResponse.json(
-        { error: "Invalid email address." },
-        { status: 400 }
-      );
-    }
-
-    // ─────────────────────────────────────────────────────
-    // TODO: Connect this to your email/CRM service.
-    //
-    // Options:
-    //   1. Resend (https://resend.com) — add RESEND_API_KEY env var
-    //   2. SendGrid — add SENDGRID_API_KEY env var
-    //   3. GoHighLevel / HubSpot CRM webhook
-    //   4. Simple mailto via nodemailer + SMTP
-    //
-    // Example with Resend:
-    //   import { Resend } from 'resend'
-    //   const resend = new Resend(process.env.RESEND_API_KEY)
-    //   await resend.emails.send({ from: '...', to: '...', subject: '...', html: '...' })
-    // ─────────────────────────────────────────────────────
-
-    // For now, log the submission (replace with real integration)
-    console.log("[Contact Form Submission]", {
-      name: body.name,
-      business: body.business,
-      email: body.email,
-      phone: body.phone || "N/A",
-      message: body.message,
-      timestamp: new Date().toISOString(),
-    });
-
-    return NextResponse.json({ success: true }, { status: 200 });
+    body = await req.json();
   } catch {
-    return NextResponse.json(
-      { error: "Internal server error." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
+
+  const { name, email, phone, business_name, business_type, website_url,
+    google_review_count, monthly_leads, biggest_challenge, goals,
+    plan_interest, message } = body;
+
+  if (!name?.trim() || !email?.trim() || !business_name?.trim()) {
+    return NextResponse.json({ error: "Missing required fields" }, { status: 422 });
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return NextResponse.json({ error: "Invalid email" }, { status: 422 });
+  }
+
+  const { error } = await supabase.from("audit_requests").insert({
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    phone: phone?.trim() || null,
+    business_name: business_name.trim(),
+    business_type: business_type || null,
+    website_url: website_url?.trim() || null,
+    google_review_count: google_review_count || null,
+    monthly_leads: monthly_leads || null,
+    biggest_challenge: biggest_challenge || null,
+    goals: goals || null,
+    plan_interest: plan_interest || null,
+    message: message?.trim() || null,
+  });
+
+  if (error) {
+    console.error("[Supabase] audit_requests insert failed:", error.message);
+    return NextResponse.json({ error: "Could not save submission" }, { status: 500 });
+  }
+
+  return NextResponse.json({ success: true }, { status: 200 });
 }
