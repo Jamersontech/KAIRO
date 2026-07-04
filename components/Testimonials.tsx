@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 import { AnimatedDotGrid } from "./AnimatedDotGrid";
 
 const testimonials = [
@@ -12,6 +12,7 @@ const testimonials = [
     title: "Owner",
     business: "Titan Plumbing & HVAC",
     rating: 5,
+    accent: "#0F5132",
   },
   {
     quote:
@@ -20,6 +21,7 @@ const testimonials = [
     title: "Founder",
     business: "Radiance Med Spa",
     rating: 5,
+    accent: "#C9A24B",
   },
   {
     quote:
@@ -28,6 +30,7 @@ const testimonials = [
     title: "Dentist & Owner",
     business: "Oakdale Family Dentistry",
     rating: 5,
+    accent: "#0F5132",
   },
 ];
 
@@ -35,27 +38,20 @@ const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function Testimonials() {
   return (
-    <section className="relative py-24 lg:py-32 bg-white overflow-hidden">
+    <section className="relative py-24 lg:py-32 bg-[#0D0D0F] overflow-hidden">
+      <AnimatedDotGrid isDark />
 
-      <AnimatedDotGrid />
+      {/* Ambient blobs */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[280px] bg-[#0F5132]/10 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-[#C9A24B]/6 rounded-full blur-[110px] pointer-events-none" />
 
-      {/* Decorative quote SVGs */}
-      <svg
-        aria-hidden="true"
-        className="absolute top-8 left-6 w-32 h-32 text-[#0F5132]/6 pointer-events-none select-none"
-        viewBox="0 0 100 80"
-        fill="currentColor"
-      >
-        <path d="M0 80V48C0 20 14 6 42 0l6 12C30 16 22 26 22 40h20v40H0zm58 0V48C58 20 72 6 100 0l6 12c-18 4-26 14-26 28h20v40H58z" />
-      </svg>
-      <svg
-        aria-hidden="true"
-        className="absolute bottom-8 right-6 w-32 h-32 text-[#C9A24B]/6 pointer-events-none select-none rotate-180"
-        viewBox="0 0 100 80"
-        fill="currentColor"
-      >
-        <path d="M0 80V48C0 20 14 6 42 0l6 12C30 16 22 26 22 40h20v40H0zm58 0V48C58 20 72 6 100 0l6 12c-18 4-26 14-26 28h20v40H58z" />
-      </svg>
+      {/* Large decorative quote marks */}
+      <div className="absolute top-8 left-6 text-[#C9A24B]/5 pointer-events-none select-none" style={{ fontSize: "14rem", lineHeight: 1, fontFamily: "Georgia, serif" }}>
+        &ldquo;
+      </div>
+      <div className="absolute bottom-8 right-6 text-[#0F5132]/8 pointer-events-none select-none rotate-180" style={{ fontSize: "14rem", lineHeight: 1, fontFamily: "Georgia, serif" }}>
+        &ldquo;
+      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -66,29 +62,30 @@ export function Testimonials() {
           transition={{ duration: 0.6, ease }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
+          <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#C9A24B] mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A24B] animate-pulse" />
             Client Results
           </span>
-          <h2
-            className="text-4xl lg:text-5xl font-bold leading-tight mb-4"
-            style={{
-              background: "linear-gradient(135deg, #1C1C1E 60%, #0F5132 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Real businesses.
-            <br />
-            Real results.
+          <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-4">
+            Real businesses.{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg, #C9A24B, #E8C87A)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Real results.
+            </span>
           </h2>
-          <p className="text-lg text-[#1C1C1E]/60">
+          <p className="text-lg text-white/40 leading-relaxed">
             Don't take our word for it — here's what local business owners say after their first 90 days with Kairo.
           </p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-5">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
@@ -96,45 +93,85 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: i * 0.1, ease }}
-              whileHover={{ y: -5, transition: { duration: 0.2, ease: "easeOut" } }}
-              className="group relative bg-[#FAF9F6] rounded-2xl p-8 border border-[#1C1C1E]/6 flex flex-col overflow-hidden hover:shadow-xl hover:shadow-[#1C1C1E]/7 transition-shadow duration-300"
+              whileHover={{ y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
+              className="group relative bg-[#111113] rounded-2xl p-8 border border-white/[0.07] flex flex-col overflow-hidden transition-all duration-300 hover:border-white/15 hover:shadow-2xl"
+              style={{
+                boxShadow: "0 0 0 0 transparent",
+              }}
             >
-              {/* Top accent */}
-              <div className="absolute top-0 inset-x-0 h-[2.5px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-2xl bg-gradient-to-r from-[#0F5132] to-[#C9A24B]" />
+              {/* Gradient top accent on hover */}
+              <div
+                className="absolute top-0 inset-x-0 h-[1.5px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+                style={{ background: `linear-gradient(90deg, ${t.accent}, #C9A24B)` }}
+              />
 
-              {/* Stars */}
-              <div className="flex items-center gap-1 mb-5">
-                {[...Array(t.rating)].map((_, j) => (
-                  <motion.div
-                    key={j}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: i * 0.1 + j * 0.06 }}
-                  >
-                    <Star size={14} className="fill-[#C9A24B] text-[#C9A24B]" />
-                  </motion.div>
-                ))}
+              {/* Corner glow */}
+              <div
+                className="absolute -top-16 -right-16 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none blur-2xl"
+                style={{ backgroundColor: `${t.accent}20` }}
+              />
+
+              {/* Quote icon */}
+              <div className="mb-5 flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  {[...Array(t.rating)].map((_, j) => (
+                    <motion.div
+                      key={j}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: i * 0.1 + j * 0.06 }}
+                    >
+                      <Star size={13} className="fill-[#C9A24B] text-[#C9A24B]" />
+                    </motion.div>
+                  ))}
+                </div>
+                <Quote size={18} className="text-white/10" />
               </div>
 
               {/* Quote */}
-              <blockquote className="text-sm text-[#1C1C1E]/70 leading-relaxed flex-1 mb-6">
+              <blockquote className="text-sm text-white/55 leading-relaxed flex-1 mb-7">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
 
               {/* Attribution */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#0F5132]/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-[#0F5132]">{t.name[0]}</span>
+              <div className="flex items-center gap-3 pt-5 border-t border-white/[0.07]">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: `${t.accent}20` }}
+                >
+                  <span className="text-sm font-bold" style={{ color: t.accent }}>
+                    {t.name[0]}
+                  </span>
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-[#1C1C1E]">{t.name}</div>
-                  <div className="text-xs text-[#1C1C1E]/45">{t.title}, {t.business}</div>
+                  <div className="text-sm font-semibold text-white">{t.name}</div>
+                  <div className="text-xs text-white/35">{t.title}, {t.business}</div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom stat strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3, ease }}
+          className="mt-14 pt-10 border-t border-white/[0.06] grid grid-cols-3 gap-6 text-center"
+        >
+          {[
+            { stat: "4.9★", label: "Average client rating" },
+            { stat: "90 days", label: "To full system momentum" },
+            { stat: "100%", label: "Of clients see new leads in month 1" },
+          ].map((item) => (
+            <div key={item.label}>
+              <div className="text-2xl font-black text-[#C9A24B] mb-1">{item.stat}</div>
+              <div className="text-xs text-white/30 leading-snug">{item.label}</div>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

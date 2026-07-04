@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { PricingCard } from "@/components/PricingCard";
 import { pricingConfig } from "@/config/site";
 import { FinalCTA } from "@/components/FinalCTA";
-import { Check } from "lucide-react";
+import { AnimatedDotGrid } from "@/components/AnimatedDotGrid";
+import { Check, X } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -31,76 +32,96 @@ const comparison = [
 
 export default function PricingPage() {
   return (
-    <div className="pt-20">
-      {/* Hero */}
-      <section className="py-24 bg-[#FAF9F6]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
-            Pricing
+    <div>
+      {/* ── Dark hero ── */}
+      <section className="relative pt-32 pb-20 bg-[#0D0D0F] overflow-hidden">
+        <AnimatedDotGrid isDark />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-[#0F5132]/12 rounded-full blur-[130px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-[#C9A24B]/6 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#C9A24B] mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A24B] animate-pulse" />
+            Transparent Pricing
           </span>
-          <h1 className="text-5xl lg:text-6xl font-bold text-[#1C1C1E] leading-tight mb-5">
-            Simple, transparent pricing.
-            <br />
-            No surprises.
+          <h1 className="text-5xl lg:text-6xl font-black text-white leading-[0.95] tracking-tight mb-6">
+            Simple pricing.{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg, #C9A24B, #E8C87A)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Serious results.
+            </span>
           </h1>
-          <p className="text-xl text-[#1C1C1E]/60 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xl text-white/45 leading-relaxed max-w-2xl mx-auto mb-10">
             Every plan includes setup, onboarding, and ongoing support. Pick the
             level that matches where your business is today — upgrade anytime.
           </p>
+
+          {/* Trust pills */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {["No lock-in contracts", "Setup included", "Cancel any time", "Results in 30 days"].map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-white/50"
+              >
+                <span className="w-1 h-1 rounded-full bg-[#C9A24B]" />
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Pricing cards */}
-      <section className="py-16 bg-white">
+      {/* ── Pricing cards — dark background ── */}
+      <section className="py-20 bg-[#0D0D0F]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-6">
             {pricingConfig.tiers.map((tier, i) => (
               <PricingCard key={tier.id} tier={tier} index={i} />
             ))}
           </div>
-
-          <p className="text-center text-sm text-[#1C1C1E]/40 mt-8">
-            All prices are monthly retainers. Setup fees may apply depending on scope.
-            Contact us to discuss your specific situation.
+          <p className="text-center text-sm text-white/25 mt-8">
+            All plans are monthly retainers. Setup fees are one-time and collected at onboarding.
           </p>
         </div>
       </section>
 
-      {/* Comparison table */}
-      <section className="py-24 bg-[#FAF9F6]">
+      {/* ── Comparison table ── */}
+      <section className="py-24 bg-[#111113]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#1C1C1E] mb-3">
-              What's included in each plan
+            <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#C9A24B] mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A24B]" />
+              Full Breakdown
+            </span>
+            <h2 className="text-3xl font-black text-white mb-3">
+              What&apos;s included in each plan
             </h2>
-            <p className="text-[#1C1C1E]/60">
+            <p className="text-white/40">
               A detailed breakdown so you can choose with confidence.
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#1C1C1E]/6 overflow-hidden shadow-sm">
+          <div className="rounded-2xl border border-white/[0.08] overflow-hidden">
             {/* Table header */}
-            <div className="grid grid-cols-4 border-b border-[#1C1C1E]/6">
+            <div className="grid grid-cols-4 border-b border-white/[0.08] bg-[#0D0D0F]">
               <div className="p-5 col-span-1" />
               {pricingConfig.tiers.map((tier) => (
                 <div
                   key={tier.id}
-                  className={`p-5 text-center ${
-                    tier.highlight ? "bg-[#0F5132]/5" : ""
-                  }`}
+                  className={`p-5 text-center ${tier.highlight ? "bg-[#0F5132]/15" : ""}`}
                 >
-                  <div
-                    className={`text-sm font-bold ${
-                      tier.highlight ? "text-[#0F5132]" : "text-[#1C1C1E]"
-                    }`}
-                  >
+                  <div className={`text-sm font-bold ${tier.highlight ? "text-[#C9A24B]" : "text-white/70"}`}>
                     {tier.name}
                   </div>
-                  <div className="text-lg font-bold text-[#1C1C1E] mt-1">
+                  <div className="text-lg font-black text-white mt-1">
                     {tier.price}
-                    <span className="text-sm font-normal text-[#1C1C1E]/40">
-                      {tier.period}
-                    </span>
+                    <span className="text-sm font-normal text-white/35">{tier.period}</span>
                   </div>
                 </div>
               ))}
@@ -110,24 +131,26 @@ export default function PricingPage() {
             {comparison.map((row, i) => (
               <div
                 key={row.feature}
-                className={`grid grid-cols-4 border-b border-[#1C1C1E]/4 last:border-0 ${
-                  i % 2 === 0 ? "bg-white" : "bg-[#FAF9F6]/50"
+                className={`grid grid-cols-4 border-b border-white/[0.05] last:border-0 ${
+                  i % 2 === 0 ? "bg-[#0D0D0F]" : "bg-[#111113]"
                 }`}
               >
-                <div className="p-4 text-sm text-[#1C1C1E]/70 col-span-1">
+                <div className="p-4 text-sm text-white/50 col-span-1">
                   {row.feature}
                 </div>
                 {[row.starter, row.growth, row.fullstack].map((val, j) => (
                   <div
                     key={j}
                     className={`p-4 flex items-center justify-center ${
-                      pricingConfig.tiers[j].highlight ? "bg-[#0F5132]/5" : ""
+                      pricingConfig.tiers[j].highlight ? "bg-[#0F5132]/8" : ""
                     }`}
                   >
                     {val ? (
-                      <Check size={16} className="text-[#0F5132]" />
+                      <div className="w-5 h-5 rounded-full bg-[#0F5132]/20 flex items-center justify-center">
+                        <Check size={12} className="text-[#C9A24B]" />
+                      </div>
                     ) : (
-                      <span className="w-4 h-px bg-[#1C1C1E]/20 block" />
+                      <X size={14} className="text-white/15" />
                     )}
                   </div>
                 ))}

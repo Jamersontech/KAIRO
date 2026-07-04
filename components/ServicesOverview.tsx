@@ -327,11 +327,11 @@ export function ServicesOverview() {
   const Visual = visuals[active];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#FAF9F6] overflow-hidden">
-      <AnimatedDotGrid />
+    <section className="relative py-24 lg:py-32 bg-[#0D0D0F] overflow-hidden">
+      <AnimatedDotGrid isDark />
 
-      <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#0F5132]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-[#C9A24B]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#0F5132]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-[#C9A24B]/8 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -345,20 +345,20 @@ export function ServicesOverview() {
           <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
             What We Do
           </span>
-          <h2
-            className="text-4xl lg:text-5xl font-bold leading-tight mb-4"
-            style={{
-              background: "linear-gradient(135deg, #1C1C1E 60%, #0F5132 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Four systems. One agency.
-            <br />
-            Endless growth.
+          <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-4">
+            Four systems. One agency.{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg, #C9A24B, #E8C87A)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Endless growth.
+            </span>
           </h2>
-          <p className="text-lg text-[#1C1C1E]/60 leading-relaxed">
+          <p className="text-lg text-white/45 leading-relaxed">
             Kairo bundles the digital infrastructure that enterprise companies pay
             six figures for — and delivers it to local businesses for a fraction of the cost.
           </p>
@@ -375,8 +375,8 @@ export function ServicesOverview() {
                   onClick={() => setActive(i)}
                   className={`flex-shrink-0 lg:flex-shrink text-left flex items-center gap-3 p-4 rounded-2xl border transition-all duration-300 ${
                     active === i
-                      ? "bg-white border-[#1C1C1E]/10 shadow-md"
-                      : "border-transparent hover:bg-white/60 hover:border-[#1C1C1E]/6"
+                      ? "bg-white/10 border-white/15"
+                      : "border-transparent hover:bg-white/5 hover:border-white/8"
                   }`}
                 >
                   <div
@@ -389,25 +389,25 @@ export function ServicesOverview() {
                   <div
                     className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300"
                     style={{
-                      backgroundColor: active === i ? `${s.color}15` : "rgba(28,28,30,0.05)",
+                      backgroundColor: active === i ? `${s.color}25` : "rgba(255,255,255,0.06)",
                     }}
                   >
                     <Icon
                       size={15}
-                      style={{ color: active === i ? s.color : "#1C1C1E99" }}
+                      style={{ color: active === i ? s.color : "rgba(255,255,255,0.4)" }}
                     />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className="text-[10px] font-bold text-[#1C1C1E]/30 tabular-nums">{s.num}</span>
+                      <span className="text-[10px] font-bold text-white/25 tabular-nums">{s.num}</span>
                       <span
                         className="text-sm font-bold truncate transition-colors duration-200"
-                        style={{ color: active === i ? s.color : "#1C1C1E" }}
+                        style={{ color: active === i ? s.color : "rgba(255,255,255,0.65)" }}
                       >
                         {s.title}
                       </span>
                     </div>
-                    <p className="text-xs text-[#1C1C1E]/40 leading-snug line-clamp-1 hidden lg:block">
+                    <p className="text-xs text-white/30 leading-snug line-clamp-1 hidden lg:block">
                       {s.tagline}
                     </p>
                   </div>
@@ -425,7 +425,7 @@ export function ServicesOverview() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.32, ease }}
-                className="bg-white rounded-3xl border border-[#1C1C1E]/6 shadow-lg overflow-hidden flex flex-col lg:flex-row h-full"
+                className="bg-[#111113] rounded-3xl border border-white/[0.08] shadow-2xl overflow-hidden flex flex-col lg:flex-row h-full"
               >
                 {/* Left: content */}
                 <div className="flex-1 p-8 lg:p-10 flex flex-col">
@@ -437,13 +437,13 @@ export function ServicesOverview() {
                     >
                       {svc.num}
                     </div>
-                    <h3 className="text-2xl font-bold text-[#1C1C1E] -mt-6">{svc.title}</h3>
+                    <h3 className="text-2xl font-bold text-white -mt-6">{svc.title}</h3>
                     <p className="text-sm font-semibold mt-1" style={{ color: svc.color }}>
                       {svc.tagline}
                     </p>
                   </div>
 
-                  <p className="text-sm text-[#1C1C1E]/58 leading-relaxed mb-6">
+                  <p className="text-sm text-white/50 leading-relaxed mb-6">
                     {svc.description}
                   </p>
 
@@ -454,7 +454,7 @@ export function ServicesOverview() {
                         initial={{ opacity: 0, x: -6 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.07, ease }}
-                        className="flex items-center gap-2.5 text-sm text-[#1C1C1E]/68"
+                        className="flex items-center gap-2.5 text-sm text-white/60"
                       >
                         <div
                           className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"

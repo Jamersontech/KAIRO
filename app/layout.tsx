@@ -3,6 +3,8 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { CustomCursor } from "@/components/CustomCursor";
+import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import { siteConfig } from "@/config/site";
 
 const geist = Geist({
@@ -49,6 +51,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#FAF9F6] text-[#1C1C1E] font-[var(--font-geist-sans)] antialiased">
+        <ScrollProgressBar />
+        <CustomCursor />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

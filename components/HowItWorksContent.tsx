@@ -89,13 +89,13 @@ const faqs = [
 function FAQItem({ faq }: { faq: { q: string; a: string } }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`rounded-2xl border transition-colors duration-300 overflow-hidden ${open ? "border-[#0F5132]/30 bg-white" : "border-[#1C1C1E]/7 bg-white hover:border-[#1C1C1E]/14"}`}>
+    <div className={`rounded-2xl border transition-all duration-300 overflow-hidden ${open ? "border-[#0F5132]/40 bg-[#111113]" : "border-white/[0.07] bg-[#111113] hover:border-white/15"}`}>
       <button
         onClick={() => setOpen((o) => !o)}
         className="w-full text-left flex items-center justify-between gap-4 px-6 py-5"
       >
-        <span className="font-semibold text-[#1C1C1E] text-sm">{faq.q}</span>
-        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${open ? "bg-[#0F5132] text-white" : "bg-[#1C1C1E]/6 text-[#1C1C1E]/50"}`}>
+        <span className="font-semibold text-white text-sm">{faq.q}</span>
+        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${open ? "bg-[#0F5132] text-white" : "bg-white/8 text-white/40"}`}>
           {open ? <Minus size={12} /> : <Plus size={12} />}
         </div>
       </button>
@@ -107,7 +107,7 @@ function FAQItem({ faq }: { faq: { q: string; a: string } }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease }}
           >
-            <p className="px-6 pb-5 text-sm text-[#1C1C1E]/58 leading-relaxed">{faq.a}</p>
+            <p className="px-6 pb-5 text-sm text-white/50 leading-relaxed">{faq.a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -164,7 +164,7 @@ export function HowItWorksContent() {
         return (
           <section
             key={step.number}
-            className={`relative py-28 overflow-hidden ${step.dark ? "bg-[#0D0D0F]" : "bg-[#FAF9F6]"}`}
+            className={`relative py-28 overflow-hidden ${step.dark ? "bg-[#0D0D0F]" : "bg-[#111113]"}`}
           >
             <AnimatedDotGrid isDark={step.dark} />
 
@@ -196,7 +196,7 @@ export function HowItWorksContent() {
                       <Icon size={22} style={{ color: step.color }} />
                     </div>
                     <div>
-                      <div className={`text-[10px] font-black tracking-widest uppercase ${step.dark ? "text-white/30" : "text-[#1C1C1E]/30"}`}>
+                      <div className="text-[10px] font-black tracking-widest uppercase text-white/30">
                         Step {step.number}
                       </div>
                       <div
@@ -222,7 +222,7 @@ export function HowItWorksContent() {
                   <p className="text-base font-semibold mb-4" style={{ color: step.color }}>
                     {step.subtitle}
                   </p>
-                  <p className={`text-base leading-relaxed mb-8 ${step.dark ? "text-white/50" : "text-[#1C1C1E]/58"}`}>
+                  <p className="text-base leading-relaxed mb-8 text-white/50">
                     {step.description}
                   </p>
                   <Link
@@ -246,8 +246,8 @@ export function HowItWorksContent() {
                   <div
                     className="rounded-3xl p-8 relative overflow-hidden border"
                     style={{
-                      backgroundColor: step.dark ? "#111113" : "white",
-                      borderColor: step.dark ? "rgba(255,255,255,0.06)" : "rgba(28,28,30,0.07)",
+                      backgroundColor: step.dark ? "#0D0D0F" : "#111113",
+                      borderColor: "rgba(255,255,255,0.07)",
                     }}
                   >
                     {/* Accent top bar */}
@@ -258,7 +258,7 @@ export function HowItWorksContent() {
                       style={{ backgroundColor: `${step.color}12`, transform: "translate(20%, -20%)" }} />
 
                     <div className="relative">
-                      <p className={`text-[10px] font-black tracking-widest uppercase mb-6 ${step.dark ? "text-white/25" : "text-[#1C1C1E]/30"}`}>
+                      <p className="text-[10px] font-black tracking-widest uppercase mb-6 text-white/25">
                         What happens in this step
                       </p>
                       <ul className="space-y-4">
@@ -277,7 +277,7 @@ export function HowItWorksContent() {
                             >
                               {i + 1}
                             </div>
-                            <span className={`text-sm leading-relaxed ${step.dark ? "text-white/60" : "text-[#1C1C1E]/65"}`}>{detail}</span>
+                            <span className="text-sm leading-relaxed text-white/58">{detail}</span>
                           </motion.li>
                         ))}
                       </ul>
@@ -290,8 +290,8 @@ export function HowItWorksContent() {
             {/* Connecting arrow between steps */}
             {idx < steps.length - 1 && (
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10">
-                <div className={`w-10 h-10 rounded-full border-4 flex items-center justify-center ${step.dark ? "bg-[#0D0D0F] border-[#1C1C1E]" : "bg-[#FAF9F6] border-[#e8e4d9]"}`}>
-                  <ArrowRight size={14} className={`rotate-90 ${step.dark ? "text-white/20" : "text-[#1C1C1E]/20"}`} />
+                <div className="w-10 h-10 rounded-full border-4 flex items-center justify-center bg-[#0D0D0F] border-[#1C1C1E]">
+                  <ArrowRight size={14} className="rotate-90 text-white/20" />
                 </div>
               </div>
             )}
@@ -300,19 +300,20 @@ export function HowItWorksContent() {
       })}
 
       {/* ── FAQ ── */}
-      <section className="relative py-24 bg-[#FAF9F6] overflow-hidden">
-        <AnimatedDotGrid />
+      <section className="relative py-24 bg-[#0D0D0F] overflow-hidden">
+        <AnimatedDotGrid isDark />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[#0F5132]/8 rounded-full blur-[100px] pointer-events-none" />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, ease }}
             className="text-center mb-12"
           >
-            <span className="text-[10px] font-black tracking-widest uppercase text-[#C9A24B] mb-3 block">FAQ</span>
-            <h2
-              className="text-4xl font-black leading-tight"
-              style={{ background: "linear-gradient(135deg, #1C1C1E 60%, #0F5132 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
-            >
+            <span className="inline-flex items-center gap-2 text-[10px] font-black tracking-widest uppercase text-[#C9A24B] mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A24B] animate-pulse" />
+              FAQ
+            </span>
+            <h2 className="text-4xl font-black text-white leading-tight">
               Common questions
             </h2>
           </motion.div>

@@ -52,10 +52,10 @@ export function PricingCard({ tier, index }: { tier: PricingTier; index: number 
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
       className={cn(
-        "relative flex flex-col rounded-2xl p-8 border transition-shadow duration-300",
+        "relative flex flex-col rounded-2xl p-8 border transition-all duration-300",
         tier.highlight
-          ? "bg-[#0F5132] border-[#0F5132] shadow-xl shadow-[#0F5132]/20"
-          : "bg-white border-[#1C1C1E]/8 shadow-sm hover:shadow-md"
+          ? "bg-[#0F5132] border-[#0F5132] shadow-xl shadow-[#0F5132]/20 hover:shadow-2xl hover:shadow-[#0F5132]/35"
+          : "bg-white border-[#1C1C1E]/8 shadow-sm hover:shadow-xl hover:shadow-[#0F5132]/15 hover:border-[#0F5132]/25"
       )}
     >
       {tier.highlight && (

@@ -1,12 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 export function Hero() {
+  const [mouse, setMouse] = useState({ x: -9999, y: -9999 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMouse({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
   return (
-    <section className="relative min-h-screen bg-[#0D0D0F] overflow-hidden flex flex-col">
+    <section
+      className="relative min-h-screen bg-[#0D0D0F] overflow-hidden flex flex-col"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setMouse({ x: -9999, y: -9999 })}
+    >
+
+      {/* ── Mouse spotlight ─────────────────── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(500px circle at ${mouse.x}px ${mouse.y}px, rgba(15,81,50,0.10), transparent 65%)`,
+        }}
+      />
 
       {/* ── SVG noise texture ───────────────── */}
       <svg
