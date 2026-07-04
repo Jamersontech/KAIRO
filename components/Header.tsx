@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { KairoMark } from "@/components/KairoMark";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -53,10 +54,13 @@ export function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-[#0F5132] flex items-center justify-center shadow-lg shadow-[#0F5132]/30 group-hover:shadow-[#0F5132]/50 transition-shadow duration-200">
-              <span className="text-white font-black text-base tracking-tight">K</span>
-            </div>
+          <Link href="/" className="flex items-center gap-3 group">
+            <KairoMark
+              className={cn(
+                "w-6 h-8 transition-colors duration-300",
+                transparentDark ? "text-white" : "text-[#1C1C1E]"
+              )}
+            />
             <span
               className={cn(
                 "font-bold text-xl tracking-tight transition-colors duration-300",
