@@ -12,7 +12,7 @@ export const siteConfig = {
   email: "hello@kairoagency.com",
   phone: "(555) 000-0000",
   location: "Serving businesses nationwide",
-  calendarUrl: "https://calendly.com/kairoagency", // Replace with your Calendly link
+  calendarUrl: "https://calendly.com/capombassisjames",
   social: {
     instagram: "https://instagram.com/kairoagency",
     facebook: "https://facebook.com/kairoagency",
