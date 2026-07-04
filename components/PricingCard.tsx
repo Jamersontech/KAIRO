@@ -9,6 +9,7 @@ interface PricingTier {
   id: string;
   name: string;
   price: string;
+  setup: string;
   period: string;
   description: string;
   highlight: boolean;
@@ -74,13 +75,19 @@ export function PricingCard({ tier, index }: { tier: PricingTier; index: number 
         </p>
       </div>
 
-      <div className="flex items-baseline gap-1 mb-8">
-        <span className={cn("text-4xl font-bold", tier.highlight ? "text-white" : "text-[#1C1C1E]")}>
-          {tier.price}
-        </span>
-        <span className={cn("text-sm", tier.highlight ? "text-white/60" : "text-[#1C1C1E]/50")}>
-          {tier.period}
-        </span>
+      {/* Price */}
+      <div className="mb-8">
+        <div className="flex items-baseline gap-1 mb-1">
+          <span className={cn("text-4xl font-bold", tier.highlight ? "text-white" : "text-[#1C1C1E]")}>
+            {tier.price}
+          </span>
+          <span className={cn("text-sm", tier.highlight ? "text-white/60" : "text-[#1C1C1E]/50")}>
+            {tier.period}
+          </span>
+        </div>
+        <p className={cn("text-xs", tier.highlight ? "text-white/45" : "text-[#1C1C1E]/40")}>
+          + {tier.setup} one-time setup fee
+        </p>
       </div>
 
       <ul className="space-y-3 mb-8 flex-1">
