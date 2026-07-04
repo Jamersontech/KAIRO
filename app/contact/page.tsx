@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Calendar, Shield, Zap, TrendingUp, Star } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
-import { siteConfig } from "@/config/site";
 import { AnimatedDotGrid } from "@/components/AnimatedDotGrid";
+import { CalendlyButton } from "@/components/CalendlyButton";
 
 export const metadata: Metadata = {
   title: "Free Website Audit — Kairo",
@@ -122,15 +122,10 @@ export default function ContactPage() {
                 <p className="text-sm text-white/65 leading-relaxed mb-4">
                   Skip the form and book a 30-minute strategy call directly. We&apos;ll run through your situation live.
                 </p>
-                <a
-                  href={siteConfig.calendarUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#0F5132] text-sm font-bold hover:bg-[#FAF9F6] transition-colors"
-                >
+                <CalendlyButton className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#0F5132] text-sm font-bold hover:bg-[#FAF9F6] transition-colors">
                   <Calendar size={14} />
                   Book a Strategy Call
-                </a>
+                </CalendlyButton>
               </div>
 
               {/* Trust line */}

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { CalendlyButton } from "@/components/CalendlyButton";
 
 export function FinalCTA() {
   return (
@@ -46,15 +46,10 @@ export function FinalCTA() {
                 Get a Free Website Audit
                 <ArrowRight size={18} />
               </Link>
-              <a
-                href={siteConfig.calendarUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-xl border border-white/30 text-white font-semibold text-base hover:bg-white/10 transition-colors duration-200"
-              >
+              <CalendlyButton className="inline-flex items-center gap-2 px-7 py-4 rounded-xl border border-white/30 text-white font-semibold text-base hover:bg-white/10 transition-colors duration-200">
                 <Calendar size={18} />
                 Book a Call
-              </a>
+              </CalendlyButton>
             </div>
           </div>
         </motion.div>
