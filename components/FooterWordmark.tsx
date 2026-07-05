@@ -24,13 +24,17 @@ export function FooterWordmark() {
       >
         Start a project ↗
       </span>
-      <span aria-hidden className="flex justify-between leading-[0.85] select-none">
+      <motion.span
+        aria-hidden
+        initial="hidden"
+        whileInView="visible"
+        viewport={VIEWPORT}
+        className="flex justify-between leading-[0.85] select-none"
+      >
         {LETTERS.map((letter, i) => (
           <span key={i} className="block overflow-hidden">
             <motion.span
-              initial={{ y: "100%" }}
-              whileInView={{ y: 0 }}
-              viewport={VIEWPORT}
+              variants={{ hidden: { y: "100%" }, visible: { y: 0 } }}
               transition={{ duration: 0.8, delay: i * 0.06, ease: EASE }}
               className="block font-black tracking-[-0.04em] text-white/[0.07] transition-colors duration-300 group-hover:text-white/[0.14] hover:!text-[#C9A24B]"
               style={{ fontSize: "clamp(4rem, 15vw, 16rem)" }}
@@ -39,7 +43,7 @@ export function FooterWordmark() {
             </motion.span>
           </span>
         ))}
-      </span>
+      </motion.span>
     </Link>
   );
 }

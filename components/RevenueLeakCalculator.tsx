@@ -7,18 +7,24 @@ import { ArrowRight } from "lucide-react";
 import { EASE, VIEWPORT } from "@/lib/motion";
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
-const JOB_VALUES = [150, 500, 1500];
+const JOB_PRESETS = [150, 300, 500, 1000, 1500, 2500];
 const WEEKS_PER_MONTH = 4.3;
 const BOOKING_RATE = 0.25;
 
 export function RevenueLeakCalculator() {
   const [missedCalls, setMissedCalls] = useState(6);
-  const [jobValue, setJobValue] = useState(500);
+  const [preset, setPreset] = useState<number | "custom">(500);
+  const [customValue, setCustomValue] = useState("");
   const [display, setDisplay] = useState(0);
   const reduced = usePrefersReducedMotion();
   const prevRef = useRef(0);
+  const customRef = useRef<HTMLInputElement>(null);
 
-  const monthly = Math.round(missedCalls * WEEKS_PER_MONTH * jobValue * BOOKING_RATE);
+  const jobValue =
+    preset === "custom" ? Math.max(0, Number(customValue) || 0) : preset;
+  const monthly = Math.round(
+    missedCalls * WEEKS_PER_MONTH * jobValue * BOOKING_RATE
+  );
 
   useEffect(() => {
     if (reduced) {
@@ -34,6 +40,12 @@ export function RevenueLeakCalculator() {
     prevRef.current = monthly;
     return () => controls.stop();
   }, [monthly, reduced]);
+
+  const selectCustom = () => {
+    setPreset("custom");
+    // Focus after the input renders
+    requestAnimationFrame(() => customRef.current?.focus());
+  };
 
   return (
     <section className="py-24 bg-[#0D0D0F]">
@@ -80,13 +92,13 @@ export function RevenueLeakCalculator() {
             {/* Job value chips */}
             <div className="mb-10">
               <div className="text-sm font-semibold text-white/60 mb-4">Average job value</div>
-              <div className="flex flex-wrap gap-3">
-                {JOB_VALUES.map((v) => (
+              <div className="flex flex-wrap gap-2.5">
+                {JOB_PRESETS.map((v) => (
                   <button
                     key={v}
-                    onClick={() => setJobValue(v)}
-                    className={`px-5 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200 ${
-                      jobValue === v
+                    onClick={() => setPreset(v)}
+                    className={`px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200 ${
+                      preset === v
                         ? "bg-[#0F5132] border-[#0F5132] text-white"
                         : "bg-transparent border-white/10 text-white/50 hover:border-white/25 hover:text-white"
                     }`}
@@ -94,7 +106,42 @@ export function RevenueLeakCalculator() {
                     ${v.toLocaleString()}
                   </button>
                 ))}
+                <button
+                  onClick={selectCustom}
+                  className={`px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200 ${
+                    preset === "custom"
+                      ? "bg-[#C9A24B]/15 border-[#C9A24B]/60 text-[#E8C87A]"
+                      : "bg-transparent border-white/10 text-white/50 hover:border-white/25 hover:text-white"
+                  }`}
+                >
+                  Custom
+                </button>
               </div>
+
+              {preset === "custom" && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.3, ease: EASE }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-4 flex items-center gap-2 max-w-[220px] px-4 py-3 rounded-xl bg-[#0D0D0F] border border-white/10 focus-within:border-[#C9A24B]/60 transition-colors duration-200">
+                    <span className="text-sm font-bold text-[#C9A24B]">$</span>
+                    <input
+                      ref={customRef}
+                      type="number"
+                      min={0}
+                      step={50}
+                      inputMode="numeric"
+                      placeholder="e.g. 750"
+                      value={customValue}
+                      onChange={(e) => setCustomValue(e.target.value)}
+                      className="w-full bg-transparent text-sm font-bold text-white placeholder:text-white/25 outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      aria-label="Custom average job value in dollars"
+                    />
+                  </div>
+                </motion.div>
+              )}
             </div>
 
             {/* Output */}
