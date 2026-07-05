@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { AnimatedDotGrid } from "./AnimatedDotGrid";
+import { SectionKicker } from "./SectionKicker";
+import { RevealLines } from "./RevealLines";
 
 const testimonials = [
   {
@@ -46,43 +48,37 @@ export function Testimonials() {
       <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-[#C9A24B]/6 rounded-full blur-[110px] pointer-events-none" />
 
       {/* Large decorative quote marks */}
-      <div className="absolute top-8 left-6 text-[#C9A24B]/5 pointer-events-none select-none" style={{ fontSize: "14rem", lineHeight: 1, fontFamily: "Georgia, serif" }}>
+      <div className="absolute top-8 left-6 text-[#C9A24B]/5 pointer-events-none select-none" style={{ fontSize: "14rem", lineHeight: 1, fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
         &ldquo;
       </div>
-      <div className="absolute bottom-8 right-6 text-[#0F5132]/8 pointer-events-none select-none rotate-180" style={{ fontSize: "14rem", lineHeight: 1, fontFamily: "Georgia, serif" }}>
+      <div className="absolute bottom-8 right-6 text-[#0F5132]/8 pointer-events-none select-none rotate-180" style={{ fontSize: "14rem", lineHeight: 1, fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
         &ldquo;
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="text-center max-w-2xl mx-auto mb-16"
-        >
-          <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#C9A24B] mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A24B] animate-pulse" />
-            Client Results
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-4">
-            Real businesses.{" "}
-            <span
-              style={{
-                background: "linear-gradient(90deg, #C9A24B, #E8C87A)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Real results.
-            </span>
-          </h2>
-          <p className="text-lg text-white/40 leading-relaxed">
+        <SectionKicker index="05" eyebrow="Client Results" align="center" className="mb-12" />
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <RevealLines
+            label="Real businesses. Real results."
+            className="text-4xl lg:text-5xl font-black text-white leading-tight tracking-[-0.02em] mb-4"
+            lines={[
+              <>
+                Real businesses.{" "}
+                <span className="font-serif-accent text-gold-gradient">Real results.</span>
+              </>,
+            ]}
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3, ease }}
+            className="text-lg text-white/40 leading-relaxed"
+          >
             Don't take our word for it — here's what local business owners say after their first 90 days with Kairo.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Cards */}
         <div className="grid md:grid-cols-3 gap-5">

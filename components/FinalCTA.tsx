@@ -4,17 +4,28 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
 import { CalendlyButton } from "@/components/CalendlyButton";
+import { Magnetic } from "@/components/Magnetic";
+import { SectionKicker } from "@/components/SectionKicker";
+import { RevealLines } from "@/components/RevealLines";
+import { EASE } from "@/lib/motion";
 
 export function FinalCTA() {
   return (
     <section className="py-24 lg:py-32 bg-[#FAF9F6]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionKicker
+          index="06"
+          eyebrow="Start Here"
+          tone="light"
+          align="center"
+          className="mb-10"
+        />
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="relative bg-[#0F5132] rounded-3xl px-8 py-16 lg:px-16 overflow-hidden"
+          transition={{ duration: 0.7, ease: EASE }}
+          className="relative bg-[#0F5132] rounded-3xl px-8 py-16 lg:px-16 overflow-hidden text-center"
         >
           {/* Background shapes */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
@@ -27,11 +38,17 @@ export function FinalCTA() {
               </span>
             </div>
 
-            <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
-              Ready to stop losing
-              <br />
-              leads to your competitors?
-            </h2>
+            <RevealLines
+              label="Ready to stop losing leads to your competitors?"
+              className="text-4xl lg:text-5xl font-black text-white leading-tight tracking-[-0.02em] mb-5"
+              lines={[
+                <>
+                  Ready to stop{" "}
+                  <span className="font-serif-accent text-gold-gradient">losing leads</span>
+                </>,
+                <>to your competitors?</>,
+              ]}
+            />
             <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-2xl mx-auto">
               Book a free website audit and we'll show you exactly where your business
               is leaking revenue online — and how to fix it. No jargon, no pitch decks.
@@ -39,17 +56,30 @@ export function FinalCTA() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white text-[#0F5132] font-bold text-base hover:bg-[#FAF9F6] transition-colors duration-200 shadow-lg"
-              >
-                Get a Free Website Audit
-                <ArrowRight size={18} />
-              </Link>
-              <CalendlyButton className="inline-flex items-center gap-2 px-7 py-4 rounded-xl border border-white/30 text-white font-semibold text-base hover:bg-white/10 transition-colors duration-200">
-                <Calendar size={18} />
-                Book a Call
-              </CalendlyButton>
+              <Magnetic>
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white text-[#0F5132] font-bold text-base hover:bg-[#FAF9F6] transition-colors duration-200 shadow-lg"
+                >
+                  Get a Free Website Audit
+                  <span className="relative inline-flex w-[18px] h-[18px] overflow-hidden">
+                    <ArrowRight
+                      size={18}
+                      className="absolute transition-all duration-300 ease-out group-hover:translate-x-[20px] group-hover:opacity-0"
+                    />
+                    <ArrowRight
+                      size={18}
+                      className="absolute -translate-x-[20px] opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100"
+                    />
+                  </span>
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <CalendlyButton className="inline-flex items-center gap-2 px-7 py-4 rounded-xl border border-white/30 text-white font-semibold text-base hover:bg-white/10 transition-colors duration-200">
+                  <Calendar size={18} />
+                  Book a Call
+                </CalendlyButton>
+              </Magnetic>
             </div>
           </div>
         </motion.div>

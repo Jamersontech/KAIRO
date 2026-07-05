@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Magnetic } from "@/components/Magnetic";
 
 export function Hero() {
   const [mouse, setMouse] = useState({ x: -9999, y: -9999 });
@@ -27,24 +28,6 @@ export function Hero() {
           background: `radial-gradient(500px circle at ${mouse.x}px ${mouse.y}px, rgba(15,81,50,0.10), transparent 65%)`,
         }}
       />
-
-      {/* ── SVG noise texture ───────────────── */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none select-none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <filter id="hero-noise">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.72"
-            numOctaves="4"
-            stitchTiles="stitch"
-          />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#hero-noise)" opacity="0.038" />
-      </svg>
 
       {/* ── Dot grid ────────────────────────── */}
       <div
@@ -106,7 +89,7 @@ export function Hero() {
               className="text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-white leading-[1.15] max-w-lg"
             >
               Your local business deserves to{" "}
-              <span className="text-[#0F5132]">compete</span> like an
+              <span className="font-serif-accent text-gold-gradient">compete</span> like an
               enterprise.
             </motion.h2>
           </div>
@@ -130,16 +113,24 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.88 }}
               className="flex flex-col sm:flex-row items-start gap-4"
             >
-              <Link
-                href="/contact"
-                className="group relative inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-[#0F5132] text-white font-bold text-sm transition-all duration-200 animate-glow hover:bg-[#16733f]"
-              >
-                Get a Free Website Audit
-                <ArrowRight
-                  size={16}
-                  className="group-hover:translate-x-1 transition-transform duration-200"
-                />
-              </Link>
+              <Magnetic>
+                <Link
+                  href="/contact"
+                  className="group relative inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-[#0F5132] text-white font-bold text-sm transition-colors duration-200 animate-glow hover:bg-[#16733f]"
+                >
+                  Get a Free Website Audit
+                  <span className="relative inline-flex w-4 h-4 overflow-hidden">
+                    <ArrowRight
+                      size={16}
+                      className="absolute transition-all duration-300 ease-out group-hover:translate-x-[18px] group-hover:opacity-0"
+                    />
+                    <ArrowRight
+                      size={16}
+                      className="absolute -translate-x-[18px] opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100"
+                    />
+                  </span>
+                </Link>
+              </Magnetic>
               <Link
                 href="/how-it-works"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-white/40 hover:text-white transition-colors duration-200 py-4"

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Phone, MessageSquare, Star, ArrowRight, Check } from "lucide-react";
 import { AnimatedDotGrid } from "./AnimatedDotGrid";
+import { SectionKicker } from "./SectionKicker";
+import { RevealLines } from "./RevealLines";
 
 const services = [
   {
@@ -335,38 +337,33 @@ export function ServicesOverview() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="max-w-2xl mb-14"
-        >
-          <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
-            What We Do
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-4">
-            Four systems. One agency.{" "}
-            <span
-              style={{
-                background: "linear-gradient(90deg, #C9A24B, #E8C87A)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Endless growth.
-            </span>
-          </h2>
-          <p className="text-lg text-white/45 leading-relaxed">
+        <SectionKicker index="03" eyebrow="What We Do" className="mb-12" />
+        <div className="max-w-2xl mb-14">
+          <RevealLines
+            label="Four systems. One agency. Endless growth."
+            className="text-4xl lg:text-5xl font-black text-white leading-tight tracking-[-0.02em] mb-4"
+            lines={[
+              <>Four systems. One agency.</>,
+              <>
+                <span className="font-serif-accent text-gold-gradient">Endless growth.</span>
+              </>,
+            ]}
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.35, ease }}
+            className="text-lg text-white/45 leading-relaxed"
+          >
             Kairo bundles the digital infrastructure that enterprise companies pay
             six figures for — and delivers it to local businesses for a fraction of the cost.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         <div className="grid lg:grid-cols-[260px_1fr] gap-4 lg:gap-6">
           {/* Tabs */}
-          <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-1 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0">
+          <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-1 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: "none" }}>
             {services.map((s, i) => {
               const Icon = s.icon;
               return (

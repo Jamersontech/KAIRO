@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { EASE, VIEWPORT } from "@/lib/motion";
+import { usePrefersReducedMotion } from "@/lib/hooks";
+import { SectionKicker } from "./SectionKicker";
 
 interface StatItem {
   prefix?: string;
@@ -21,10 +24,15 @@ const stats: StatItem[] = [
 function CountUp({ item }: { item: StatItem }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
+  const reduced = usePrefersReducedMotion();
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
+    if (reduced) {
+      setDisplay(item.value);
+      return;
+    }
     const end = item.value;
     const duration = 1600;
     const startTime = performance.now();
@@ -39,47 +47,54 @@ function CountUp({ item }: { item: StatItem }) {
     };
 
     requestAnimationFrame(tick);
-  }, [inView, item.value]);
+  }, [inView, item.value, reduced]);
 
   return (
     <span ref={ref} className="tabular-nums">
-      {item.prefix ?? ""}{display}{item.suffix}
+      {item.prefix ?? ""}{display}
     </span>
   );
 }
 
 export function StatsBar() {
   return (
-    <section className="relative bg-[#1C1C1E] py-16 overflow-hidden">
-      {/* Subtle grid */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
-
+    <section className="relative bg-[#0D0D0F] py-20 overflow-hidden">
       {/* Accent orbs */}
       <div className="absolute left-1/4 top-1/2 -translate-y-1/2 w-64 h-64 bg-[#0F5132]/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-48 h-48 bg-[#C9A24B]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        <SectionKicker index="04" eyebrow="By the Numbers" className="mb-14" />
+
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-x-8 gap-y-12 xl:gap-0 xl:divide-x xl:divide-white/[0.06]">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] }}
-              className="text-center group"
+              viewport={VIEWPORT}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
+              className="xl:px-8 xl:first:pl-0"
             >
-              <div className="text-3xl font-bold text-[#C9A24B] mb-1 transition-transform duration-300 group-hover:scale-110">
-                <CountUp item={stat} />
+              <div className="inline-flex items-baseline">
+                <span
+                  className="font-black text-white/90 leading-none tracking-[-0.03em]"
+                  style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
+                >
+                  <CountUp item={stat} />
+                </span>
+                {stat.suffix && (
+                  <span
+                    className="font-serif-accent text-[#C9A24B] leading-none"
+                    style={{ fontSize: "clamp(1.15rem, 2.4vw, 2.1rem)" }}
+                  >
+                    {stat.suffix}
+                  </span>
+                )}
               </div>
-              <div className="text-xs text-white/45 leading-snug">{stat.label}</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-white/30 mt-3 leading-relaxed">
+                {stat.label}
+              </div>
             </motion.div>
           ))}
         </div>

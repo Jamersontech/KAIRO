@@ -3,6 +3,7 @@ import { PricingCard } from "@/components/PricingCard";
 import { pricingConfig } from "@/config/site";
 import { FinalCTA } from "@/components/FinalCTA";
 import { AnimatedDotGrid } from "@/components/AnimatedDotGrid";
+import { RevenueLeakCalculator } from "@/components/RevenueLeakCalculator";
 import { Check, X } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -159,6 +160,8 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+
+      <RevenueLeakCalculator />
 
       <FinalCTA />
     </div>

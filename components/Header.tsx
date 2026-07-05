@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { KairoMark } from "@/components/KairoMark";
+import { Magnetic } from "@/components/Magnetic";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -84,7 +85,7 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "text-sm font-medium transition-colors duration-200",
+                    "relative text-sm font-medium transition-colors duration-200 group/nav",
                     pathname === link.href
                       ? transparentDark ? "text-[#C9A24B]" : "text-[#0F5132]"
                       : transparentDark
@@ -93,23 +94,38 @@ export function Header() {
                   )}
                 >
                   {link.label}
+                  {pathname === link.href ? (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute -bottom-1.5 left-0 right-0 h-[1.5px]"
+                      style={{ backgroundColor: transparentDark ? "#C9A24B" : "#0F5132" }}
+                      transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                    />
+                  ) : (
+                    <span
+                      className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 opacity-40 transition-transform duration-300 ease-out group-hover/nav:scale-x-100"
+                      style={{ backgroundColor: transparentDark ? "#C9A24B" : "#0F5132" }}
+                    />
+                  )}
                 </Link>
               ))}
             </nav>
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center">
-              <Link
-                href="/contact"
-                className={cn(
-                  "inline-flex items-center px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200",
-                  transparentDark
-                    ? "bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-sm"
-                    : "bg-[#0F5132] text-white hover:bg-[#16733f] shadow-sm"
-                )}
-              >
-                Free Website Audit
-              </Link>
+              <Magnetic>
+                <Link
+                  href="/contact"
+                  className={cn(
+                    "inline-flex items-center px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200",
+                    transparentDark
+                      ? "bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-sm"
+                      : "bg-[#0F5132] text-white hover:bg-[#16733f] shadow-sm"
+                  )}
+                >
+                  Free Website Audit
+                </Link>
+              </Magnetic>
             </div>
 
             {/* Hamburger — stays above overlay */}
@@ -168,15 +184,6 @@ export function Header() {
             {/* Ambient blobs */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#0F5132]/15 rounded-full blur-[130px] pointer-events-none" />
             <div className="absolute bottom-1/3 left-0 w-72 h-72 bg-[#C9A24B]/8 rounded-full blur-[110px] pointer-events-none" />
-
-            {/* SVG noise */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.035]" aria-hidden="true">
-              <filter id="menu-noise">
-                <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" />
-                <feColorMatrix type="saturate" values="0" />
-              </filter>
-              <rect width="100%" height="100%" filter="url(#menu-noise)" />
-            </svg>
 
             {/* Faded watermark */}
             <div className="absolute inset-0 flex items-end justify-end overflow-hidden pointer-events-none pb-8 pr-2">

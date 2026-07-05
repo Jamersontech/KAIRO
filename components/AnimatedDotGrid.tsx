@@ -84,6 +84,33 @@ export function AnimatedDotGrid({
     };
     const onLeave = () => { mouse = { x: -9999, y: -9999 }; };
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Static single draw for reduced motion — no rAF loop, no pointer tracking
+    const drawStatic = () => {
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx.clearRect(0, 0, w, h);
+      const baseA = isDark ? 0.08 : 0.085;
+      for (const d of dots) {
+        ctx.beginPath();
+        ctx.arc(d.bx, d.by, 1.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${rgb},${baseA})`;
+        ctx.fill();
+      }
+    };
+
+    if (reduced) {
+      const ro = new ResizeObserver(() => {
+        resize();
+        drawStatic();
+      });
+      ro.observe(canvas);
+      resize();
+      drawStatic();
+      return () => ro.disconnect();
+    }
+
     const parent = canvas.parentElement!;
     parent.addEventListener("mousemove", onMove);
     parent.addEventListener("mouseleave", onLeave);

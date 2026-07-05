@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { Phone, Globe, Star, MessageSquare } from "lucide-react";
 import { AnimatedDotGrid } from "./AnimatedDotGrid";
+import { SectionKicker } from "./SectionKicker";
+import { RevealLines } from "./RevealLines";
 
 const pairs = [
   {
@@ -56,36 +58,31 @@ export function ProblemSolution() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="max-w-3xl mb-16"
-        >
-          <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
-            The Reality
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
-            Great businesses lose clients to{" "}
-            <span
-              style={{
-                background: "linear-gradient(90deg, #C9A24B 0%, #E8C87A 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              faster, louder
-            </span>{" "}
-            competitors.
-          </h2>
-          <p className="text-lg text-white/45 leading-relaxed">
+        <SectionKicker index="02" eyebrow="The Reality" className="mb-12" />
+        <div className="max-w-3xl mb-16">
+          <RevealLines
+            label="Great businesses lose clients to faster, louder competitors."
+            className="text-4xl lg:text-5xl font-black text-white leading-tight tracking-[-0.02em] mb-5"
+            lines={[
+              <>Great businesses lose clients to</>,
+              <>
+                <span className="font-serif-accent text-gold-gradient">faster, louder</span>{" "}
+                competitors.
+              </>,
+            ]}
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.35, ease }}
+            className="text-lg text-white/45 leading-relaxed"
+          >
             It's not about being better. It's about being{" "}
             <em className="text-white/65 not-italic font-medium">present</em> — online,
             responsive, and trusted. Here's what changes the moment you add Kairo.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Column labels — desktop only */}
         <div className="hidden md:grid md:grid-cols-[1fr_52px_1fr] gap-0 mb-3 px-1">

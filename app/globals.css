@@ -1,34 +1,99 @@
 @import "tailwindcss";
 
-:root {
-  --color-charcoal: #1c1c1e;
-  --color-offwhite: #faf9f6;
-  --color-emerald: #0f5132;
-  --color-emerald-hover: #16733f;
-  --color-gold: #c9a24b;
-  --color-gold-light: #d4b060;
+/* ── Design tokens ────────────────────────────── */
+@theme {
   --color-void: #0d0d0f;
+  --color-surface: #111113;
+  --color-charcoal: #1c1c1e;
+  --color-cream: #faf9f6;
+  --color-emerald: #0f5132;
+  --color-emerald-bright: #16733f;
+  --color-gold: #c9a24b;
+  --color-gold-light: #e8c87a;
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
+  scrollbar-color: rgba(255, 255, 255, 0.18) var(--color-void);
 }
 
 body {
-  background-color: var(--color-offwhite);
-  color: var(--color-charcoal);
+  background-color: var(--color-void);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: var(--color-emerald);
-  color: #fff;
+  background-color: var(--color-gold);
+  color: var(--color-void);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-emerald);
+  outline: 2px solid var(--color-gold);
   outline-offset: 3px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  border: 2px solid var(--color-void);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+/* ── Shared text treatments ───────────────────── */
+.text-gold-gradient {
+  background: linear-gradient(90deg, #c9a24b, #e8c87a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.font-serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-size: 1.05em;
+}
+
+/* ── Global film grain ────────────────────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ── Underline draw (footer / text links) ─────── */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: rgba(201, 162, 75, 0.5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
 }
 
 /* ── KAIRO wordmark shimmer ───────────────────── */
@@ -73,17 +138,6 @@ body {
 .animate-blob-a { animation: blob-a  9s ease-in-out infinite; }
 .animate-blob-b { animation: blob-b 11s ease-in-out infinite 2.5s; }
 
-/* ── Marquee ticker ───────────────────────────── */
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  animation: marquee-scroll 32s linear infinite;
-  will-change: transform;
-}
-
 /* ── CTA glow pulse ───────────────────────────── */
 @keyframes glow-pulse {
   0%, 100% { box-shadow: 0 0 20px 4px rgba(15,81,50,0.35); }
@@ -102,8 +156,59 @@ body {
   animation: draw-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
 }
 
+/* ── Revenue-leak calculator slider ───────────── */
+input[type="range"].leak-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+input[type="range"].leak-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: 3px solid var(--color-void);
+  box-shadow: 0 0 0 1px rgba(201, 162, 75, 0.5);
+}
+input[type="range"].leak-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: 3px solid var(--color-void);
+  box-shadow: 0 0 0 1px rgba(201, 162, 75, 0.5);
+}
+
+/* ── Reduced motion ───────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-blob-a,
+  .animate-blob-b {
+    animation: none;
+  }
+  .kairo-wordmark {
+    animation: none;
+    background-position: 50% center;
+  }
+  .animate-glow {
+    animation: none;
+    box-shadow: 0 0 20px 4px rgba(15, 81, 50, 0.35);
+  }
+  .animate-draw-line {
+    animation-duration: 0.01ms;
+  }
+  .link-underline::after {
+    transition-duration: 0.01ms;
+  }
+}
+
 /* ── Custom cursor (desktop only) ─────────────── */
-@media (pointer: fine) {
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   *, *::before, *::after {
     cursor: none !important;
   }
