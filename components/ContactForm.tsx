@@ -207,6 +207,14 @@ export function ContactForm() {
                     placeholder="(555) 000-0000" className={inputCls(false)} />
                 </Field>
               </div>
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-3 border-t border-[#1C1C1E]/6">
+                {["Takes ~2 minutes", "No spam, ever", "Your info stays private"].map((item) => (
+                  <span key={item} className="inline-flex items-center gap-1.5 text-xs text-[#1C1C1E]/40">
+                    <Check size={11} className="text-[#0F5132]" />
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
 
@@ -358,7 +366,7 @@ export function ContactForm() {
       </AnimatePresence>
 
       {/* Navigation */}
-      <div className={`flex mt-8 gap-3 ${step > 1 ? "justify-between" : "justify-end"}`}>
+      <div className={`flex mt-6 gap-3 ${step > 1 ? "justify-between" : "justify-end"}`}>
         {step > 1 && (
           <button onClick={goBack}
             className="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#1C1C1E]/12 text-sm font-semibold text-[#1C1C1E]/55 hover:border-[#1C1C1E]/25 transition-colors"

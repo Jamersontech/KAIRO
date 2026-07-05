@@ -21,7 +21,7 @@ export default function AboutPage() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="py-24 bg-[#FAF9F6]">
+      <section className="py-24 bg-[#FAF9F6] kairo-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>

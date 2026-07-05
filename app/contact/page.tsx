@@ -78,7 +78,7 @@ export default function ContactPage() {
       </section>
 
       {/* ── Form + sidebar ── */}
-      <section className="bg-[#FAF9F6] py-16 lg:py-20">
+      <section className="bg-[#FAF9F6] kairo-pattern py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[1fr_340px] gap-10 items-start">
 

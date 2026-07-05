@@ -116,7 +116,7 @@ export function ServicesPageContent() {
           <section
             key={svc.id}
             id={svc.id}
-            className={`relative py-28 overflow-hidden ${svc.dark ? "bg-[#0D0D0F]" : "bg-[#FAF9F6]"}`}
+            className={`relative py-28 overflow-hidden ${svc.dark ? "bg-[#0D0D0F]" : "bg-[#FAF9F6] kairo-pattern"}`}
           >
             <AnimatedDotGrid isDark={svc.dark} />
 
