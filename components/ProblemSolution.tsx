@@ -10,36 +10,36 @@ const pairs = [
   {
     icon: Phone,
     problem:
-      "A potential client calls at 7pm. No one answers. They call your competitor, who picks up immediately. That's a $2,000 job you'll never know you lost.",
+      "A client calls at 7pm. No answer. They book with your competitor instead.",
     solution:
-      "Your AI voice agent answers every call in under 2 rings, 24/7. It qualifies the lead, answers their questions, and books the appointment — even while you sleep.",
+      "Your AI agent answers every call, 24/7 — and books the appointment while you sleep.",
     stat: "78%",
     statNote: "of buyers choose whoever responds first",
   },
   {
     icon: Globe,
     problem:
-      "Your website looks like it was built in 2015. Visitors leave in under 10 seconds. You're invisible on Google and losing clients to businesses you're better than.",
+      "Your website looks dated, loads slowly, and quietly sends visitors elsewhere.",
     solution:
-      "A conversion-focused website built by AI, refined by our team, live in 48 hours. Every element engineered to turn visitors into booked appointments.",
+      "A conversion-focused site built by AI, refined by our team — live in 48 hours.",
     stat: "48hrs",
     statNote: "from brief to fully live site",
   },
   {
     icon: Star,
     problem:
-      "You have 24 Google reviews. The shop down the street has 340. They dominate local search and get 3× the call volume — entirely because of reputation.",
+      "You have 24 reviews. Your competitor has 340 — and wins local search on reputation alone.",
     solution:
-      "Automated review requests go out after every completed job. Your rating climbs every single week without you lifting a finger. More stars means more calls.",
+      "Review requests go out automatically after every job. Your rating climbs weekly.",
     stat: "200+",
     statNote: "reviews generated for our clients",
   },
   {
     icon: MessageSquare,
     problem:
-      "You follow up manually, when you remember. Half the time it's too late and the lead has gone cold. You're leaving real money on the table every week.",
+      "Manual follow-up happens late or never. Leads go cold and money is lost.",
     solution:
-      "The moment a lead comes in, an SMS fires in under 60 seconds. Nurture sequences run in the background, converting prospects for weeks — without your effort.",
+      "Every new lead gets a text in under 60 seconds — then nurtured for weeks, hands-free.",
     stat: "60s",
     statNote: "average lead response time",
   },
