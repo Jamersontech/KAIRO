@@ -8,7 +8,8 @@ import { EASE, VIEWPORT } from "@/lib/motion";
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
 const JOB_PRESETS = [150, 300, 500, 1000, 1500, 2500];
-const WEEKS_PER_MONTH = 4.3;
+const WEEKS_PER_YEAR = 52;
+const WEEKS_PER_MONTH = WEEKS_PER_YEAR / 12; // 52 weeks ÷ 12 months ≈ 4.33
 const BOOKING_RATE = 0.25;
 
 export function RevenueLeakCalculator() {
@@ -22,9 +23,14 @@ export function RevenueLeakCalculator() {
 
   const jobValue =
     preset === "custom" ? Math.max(0, Number(customValue) || 0) : preset;
-  const monthly = Math.round(
-    missedCalls * WEEKS_PER_MONTH * jobValue * BOOKING_RATE
-  );
+  // Base everything on the weekly figure so week → month → year stay consistent
+  const weekly = missedCalls * jobValue * BOOKING_RATE;
+  const monthly = Math.round(weekly * WEEKS_PER_MONTH);
+
+  // Derived from the single animated `display` (monthly) to keep all three in sync
+  const displayMonth = display;
+  const displayWeek = Math.round(display / WEEKS_PER_MONTH);
+  const displayYear = Math.round(display * 12);
 
   useEffect(() => {
     if (reduced) {
@@ -146,14 +152,35 @@ export function RevenueLeakCalculator() {
 
             {/* Output */}
             <div className="pt-8 border-t border-white/[0.06]">
-              <p className="text-sm text-white/40 mb-2">You're leaving roughly</p>
-              <div className="text-5xl lg:text-6xl font-black tabular-nums text-gold-gradient leading-none mb-2">
-                ${display.toLocaleString()}
+              <p className="text-sm text-white/40 mb-5">
+                Here&apos;s what those missed calls quietly cost you:
+              </p>
+              <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-6">
+                {[
+                  { label: "Per week", value: displayWeek, hero: false },
+                  { label: "Per month", value: displayMonth, hero: false },
+                  { label: "Per year", value: displayYear, hero: true },
+                ].map((row) => (
+                  <div key={row.label}>
+                    <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 mb-2">
+                      {row.label}
+                    </div>
+                    <div
+                      className={`font-black tabular-nums leading-none ${
+                        row.hero
+                          ? "text-gold-gradient text-3xl sm:text-5xl"
+                          : "text-white/85 text-2xl sm:text-3xl"
+                      }`}
+                    >
+                      ${row.value.toLocaleString()}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <p className="text-sm text-white/40 mb-1">on the table every month.</p>
-              <p className="text-[10px] text-white/25 mb-8">
-                Assumes {WEEKS_PER_MONTH} weeks per month and that 25% of answered calls
-                become booked jobs.
+              <p className="text-[10px] text-white/25 mb-8 leading-relaxed">
+                Assumes 25% of answered calls become booked jobs. Monthly and yearly
+                figures use 52 weeks ÷ 12 ≈ 4.3 weeks per month, so the annual total
+                reflects a full 52-week year — not 48.
               </p>
 
               <Link
