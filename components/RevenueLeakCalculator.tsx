@@ -12,8 +12,17 @@ const WEEKS_PER_YEAR = 52;
 const WEEKS_PER_MONTH = WEEKS_PER_YEAR / 12; // 52 weeks ÷ 12 months ≈ 4.33
 const BOOKING_RATE = 0.25;
 
+// How the "missed calls per ___" input converts to a weekly figure.
+const PERIODS = {
+  day: { label: "Day", max: 15, defaultVal: 2, toWeek: 7 },
+  week: { label: "Week", max: 30, defaultVal: 5, toWeek: 1 },
+  month: { label: "Month", max: 120, defaultVal: 20, toWeek: 12 / 52 },
+} as const;
+type Period = keyof typeof PERIODS;
+
 export function RevenueLeakCalculator() {
-  const [missedCalls, setMissedCalls] = useState(6);
+  const [period, setPeriod] = useState<Period>("week");
+  const [missedCalls, setMissedCalls] = useState<number>(PERIODS.week.defaultVal);
   const [preset, setPreset] = useState<number | "custom">(500);
   const [customValue, setCustomValue] = useState("");
   const [display, setDisplay] = useState(0);
@@ -23,8 +32,9 @@ export function RevenueLeakCalculator() {
 
   const jobValue =
     preset === "custom" ? Math.max(0, Number(customValue) || 0) : preset;
-  // Base everything on the weekly figure so week → month → year stay consistent
-  const weekly = missedCalls * jobValue * BOOKING_RATE;
+  // Normalize the chosen input period to a weekly figure, then base month/year on it
+  const weeklyCalls = missedCalls * PERIODS[period].toWeek;
+  const weekly = weeklyCalls * jobValue * BOOKING_RATE;
   const monthly = Math.round(weekly * WEEKS_PER_MONTH);
 
   // Derived from the single animated `display` (monthly) to keep all three in sync
@@ -46,6 +56,11 @@ export function RevenueLeakCalculator() {
     prevRef.current = monthly;
     return () => controls.stop();
   }, [monthly, reduced]);
+
+  const changePeriod = (p: Period) => {
+    setPeriod(p);
+    setMissedCalls((c) => Math.min(c, PERIODS[p].max));
+  };
 
   const selectCustom = () => {
     setPreset("custom");
@@ -76,19 +91,37 @@ export function RevenueLeakCalculator() {
               <span className="font-serif-accent text-gold-gradient">costing you?</span>
             </h3>
 
-            {/* Missed calls slider */}
+            {/* Missed calls */}
             <div className="mb-8">
-              <div className="flex items-baseline justify-between mb-4">
+              <div className="flex items-baseline justify-between mb-3">
                 <label htmlFor="missed-calls" className="text-sm font-semibold text-white/60">
-                  Missed calls per week
+                  Missed calls per {PERIODS[period].label.toLowerCase()}
                 </label>
                 <span className="text-lg font-black text-white tabular-nums">{missedCalls}</span>
               </div>
+
+              {/* Period toggle */}
+              <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-[#0D0D0F] border border-white/10 mb-5">
+                {(Object.keys(PERIODS) as Period[]).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => changePeriod(p)}
+                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${
+                      period === p
+                        ? "bg-[#0F5132] text-white"
+                        : "text-white/45 hover:text-white"
+                    }`}
+                  >
+                    {PERIODS[p].label}
+                  </button>
+                ))}
+              </div>
+
               <input
                 id="missed-calls"
                 type="range"
                 min={0}
-                max={25}
+                max={PERIODS[period].max}
                 value={missedCalls}
                 onChange={(e) => setMissedCalls(Number(e.target.value))}
                 className="leak-slider"
@@ -155,28 +188,37 @@ export function RevenueLeakCalculator() {
               <p className="text-sm text-white/40 mb-5">
                 Here&apos;s what those missed calls quietly cost you:
               </p>
-              <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-6">
+
+              {/* Week + month — supporting figures */}
+              <div className="grid grid-cols-2 gap-6 mb-6">
                 {[
-                  { label: "Per week", value: displayWeek, hero: false },
-                  { label: "Per month", value: displayMonth, hero: false },
-                  { label: "Per year", value: displayYear, hero: true },
+                  { label: "Per week", value: displayWeek },
+                  { label: "Per month", value: displayMonth },
                 ].map((row) => (
                   <div key={row.label}>
                     <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 mb-2">
                       {row.label}
                     </div>
-                    <div
-                      className={`font-black tabular-nums leading-none ${
-                        row.hero
-                          ? "text-gold-gradient text-3xl sm:text-5xl"
-                          : "text-white/85 text-2xl sm:text-3xl"
-                      }`}
-                    >
+                    <div className="font-black tabular-nums leading-none text-white/85 text-2xl sm:text-3xl whitespace-nowrap">
                       ${row.value.toLocaleString()}
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/* Year — the hero figure, full width so it never clips */}
+              <div className="pt-6 mb-6 border-t border-white/[0.06]">
+                <div className="text-[10px] uppercase tracking-[0.2em] text-[#C9A24B]/70 mb-2">
+                  Per year
+                </div>
+                <div
+                  className="font-black tabular-nums leading-none text-gold-gradient whitespace-nowrap"
+                  style={{ fontSize: "clamp(2.5rem, 9vw, 4rem)" }}
+                >
+                  ${displayYear.toLocaleString()}
+                </div>
+              </div>
+
               <p className="text-[10px] text-white/25 mb-8 leading-relaxed">
                 Assumes 25% of answered calls become booked jobs. Monthly and yearly
                 figures use 52 weeks ÷ 12 ≈ 4.3 weeks per month, so the annual total
