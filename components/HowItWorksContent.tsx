@@ -166,12 +166,12 @@ export function HowItWorksContent() {
             key={step.number}
             className={`relative py-28 overflow-hidden ${step.dark ? "bg-[#0D0D0F]" : "bg-[#111113]"}`}
           >
-            <AnimatedDotGrid isDark={step.dark} />
+            <AnimatedDotGrid isDark />
 
             {/* Giant step number watermark */}
             <div
               className="absolute left-0 top-1/2 -translate-y-1/2 text-[22rem] font-black leading-none select-none pointer-events-none tabular-nums -translate-x-8"
-              style={{ color: step.dark ? "rgba(255,255,255,0.025)" : "rgba(28,28,30,0.04)" }}
+              style={{ color: "rgba(255,255,255,0.03)" }}
             >
               {step.number}
             </div>
@@ -211,9 +211,7 @@ export function HowItWorksContent() {
                   <h2
                     className="text-4xl lg:text-5xl font-black leading-[0.95] tracking-tight mb-4"
                     style={{
-                      background: step.dark
-                        ? `linear-gradient(135deg, #ffffff 55%, ${step.color} 100%)`
-                        : `linear-gradient(135deg, #1C1C1E 55%, ${step.color} 100%)`,
+                      background: `linear-gradient(135deg, #ffffff 55%, ${step.color} 100%)`,
                       WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
                     }}
                   >
@@ -246,8 +244,8 @@ export function HowItWorksContent() {
                   <div
                     className="rounded-3xl p-8 relative overflow-hidden border"
                     style={{
-                      backgroundColor: step.dark ? "#0D0D0F" : "#111113",
-                      borderColor: "rgba(255,255,255,0.07)",
+                      backgroundColor: step.dark ? "#141417" : "#17171b",
+                      borderColor: "rgba(255,255,255,0.09)",
                     }}
                   >
                     {/* Accent top bar */}
