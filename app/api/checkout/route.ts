@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
+let stripe: Stripe | null = null;
+
+function getStripe(): Stripe {
+  if (!stripe) {
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+  }
+  return stripe;
+}
 
 const priceMap: Record<string, { monthly: string | undefined; setup: string | undefined }> = {
   starter: {
@@ -55,7 +62,7 @@ export async function POST(req: NextRequest) {
     lineItems.push({ price: setup, quantity: 1 });
   }
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: "subscription",
     line_items: lineItems,
     success_url: `${siteUrl}/pricing?success=1`,
