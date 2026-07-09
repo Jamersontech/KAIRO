@@ -1,27 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 
 export function CustomCursor() {
   const [visible, setVisible] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [clicking, setClicking] = useState(false);
 
-  const mx = useMotionValue(-400);
-  const my = useMotionValue(-400);
-
-  // Slight lag makes it feel alive
-  const x = useSpring(mx, { stiffness: 280, damping: 32 });
-  const y = useSpring(my, { stiffness: 280, damping: 32 });
+  // Track the pointer 1:1 — no spring, so there's zero lag.
+  const x = useMotionValue(-400);
+  const y = useMotionValue(-400);
 
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const onMove = (e: MouseEvent) => {
-      mx.set(e.clientX);
-      my.set(e.clientY);
+      x.set(e.clientX);
+      y.set(e.clientY);
       setVisible(true);
     };
     const onEnter = (e: MouseEvent) => {
@@ -50,7 +47,7 @@ export function CustomCursor() {
       window.removeEventListener("mouseup", onUp);
       document.documentElement.removeEventListener("mouseleave", onOut);
     };
-  }, [mx, my]);
+  }, [x, y]);
 
   return (
     <motion.div

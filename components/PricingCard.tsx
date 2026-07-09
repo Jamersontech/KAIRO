@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { EASE } from "@/lib/motion";
 import type { PricingTier } from "@/config/site";
+import { SELECT_FEATURE_EVENT } from "@/components/PricingFeatureExplorer";
 
 const ICONS: Record<string, LucideIcon> = {
   Globe, ClipboardList, Mail, Star, BarChart3, MessageCircle,
@@ -105,24 +106,38 @@ export function PricingCard({ tier, index }: { tier: PricingTier; index: number 
         </p>
       )}
 
-      {/* Features */}
-      <ul className="space-y-4 mb-8 flex-1">
+      {/* Features — each links into the explorer below */}
+      <ul className="space-y-1.5 mb-8 flex-1">
         {tier.features.map((f) => {
           const Icon = ICONS[f.icon] ?? Star;
           return (
-            <li key={f.name} className="flex items-start gap-3">
-              <span
-                className={cn(
-                  "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center mt-0.5",
-                  hot ? "bg-[#C9A24B]/15" : "bg-white/[0.06]"
-                )}
+            <li key={f.name}>
+              <a
+                href={`#feature-${f.slug}`}
+                onClick={() =>
+                  window.dispatchEvent(new CustomEvent(SELECT_FEATURE_EVENT, { detail: f.slug }))
+                }
+                className="group/feat flex items-start gap-3 -mx-2 px-2 py-1.5 rounded-lg hover:bg-white/[0.04] transition-colors duration-200"
               >
-                <Icon size={15} className={hot ? "text-[#C9A24B]" : "text-[#C9A24B]"} />
-              </span>
-              <span>
-                <span className="block text-sm font-semibold text-white leading-snug">{f.name}</span>
-                <span className="block text-xs text-white/45 leading-snug mt-0.5">{f.benefit}</span>
-              </span>
+                <span
+                  className={cn(
+                    "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center mt-0.5",
+                    hot ? "bg-[#C9A24B]/15" : "bg-white/[0.06]"
+                  )}
+                >
+                  <Icon size={15} className="text-[#C9A24B]" />
+                </span>
+                <span className="flex-1">
+                  <span className="flex items-center gap-1 text-sm font-semibold text-white leading-snug">
+                    {f.name}
+                    <ArrowRight
+                      size={12}
+                      className="text-[#C9A24B] opacity-0 -translate-x-1 group-hover/feat:opacity-100 group-hover/feat:translate-x-0 transition-all duration-200"
+                    />
+                  </span>
+                  <span className="block text-xs text-white/45 leading-snug mt-0.5">{f.benefit}</span>
+                </span>
+              </a>
             </li>
           );
         })}
