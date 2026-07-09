@@ -13,11 +13,11 @@ const services = [
     num: "01",
     icon: Globe,
     title: "AI-Built Websites",
-    tagline: "Go live in 48 hours.",
+    tagline: "Go live in 3–5 days.",
     description:
       "We don't use templates. Every Kairo site is custom-built using AI-assisted design and refined by our team. The result: a conversion machine that looks premium and turns visitors into booked appointments — fast.",
     benefits: [
-      "48-hour turnaround from brief to live site",
+      "3–5 day turnaround from brief to live site",
       "Mobile-first, SEO-ready from launch day",
       "Conversion-optimized layout, not just pretty",
       "Schema markup, meta tags, and sitemap included",
@@ -133,7 +133,7 @@ function WebsiteVisual() {
         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
         className="absolute -top-3 -right-2 bg-[#C9A24B] text-[#1C1C1E] text-[9px] font-black px-2.5 py-1.5 rounded-xl shadow-lg"
       >
-        48 hrs ⚡
+        3–5 days ⚡
       </motion.div>
     </div>
   );

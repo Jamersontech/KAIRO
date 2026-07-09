@@ -10,11 +10,11 @@ const values = [
   {
     icon: Zap,
     title: "Speed as a feature",
-    body: "We don't do six-week website builds. Local businesses can't afford to wait — which is why we've built a process that launches in 48 hours without sacrificing quality.",
+    body: "We don't do six-week website builds. Local businesses can't afford to wait — which is why we've built a process that launches in 3–5 days without sacrificing quality.",
     color: "#C9A24B",
     accent: "#C9A24B",
-    stat: "48hrs",
-    statLabel: "to launch",
+    stat: "3–5",
+    statLabel: "days to launch",
   },
   {
     icon: Users,

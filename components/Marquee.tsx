@@ -19,7 +19,7 @@ const items = [
   "SMS Automation",
   "Google Reviews",
   "Lead Follow-Up",
-  "48-Hour Launch",
+  "3–5 Day Launch",
   "Reputation Management",
   "24/7 Call Answering",
   "Done For You",

@@ -32,9 +32,9 @@ const steps = [
     icon: Wrench,
     title: "Build",
     subtitle: "We deploy your digital infrastructure — fast.",
-    description: "Once we have a clear picture of what you need, we build it. Your new website goes live within 48 hours. Your automation sequences are configured, tested, and connected to your tools. No delays, no endless revision cycles.",
+    description: "Once we have a clear picture of what you need, we build it. Your new website goes live within 3–5 days. Your automation sequences are configured, tested, and connected to your tools. No delays, no endless revision cycles.",
     details: [
-      "Custom website designed and launched in 48 hours",
+      "Custom website designed and launched in 3–5 days",
       "Lead capture forms configured and tested",
       "SMS & email sequences written and activated",
       "Google review system connected to your workflow",

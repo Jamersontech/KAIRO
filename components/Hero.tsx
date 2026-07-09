@@ -150,7 +150,7 @@ export function Hero() {
           className="mt-14 pt-6 border-t border-white/8 flex flex-wrap items-center gap-x-10 gap-y-4"
         >
           {[
-            { stat: "48hrs", label: "website launch" },
+            { stat: "3–5 days", label: "website launch" },
             { stat: "40%",   label: "more leads on avg." },
             { stat: "200+",  label: "reviews generated" },
             { stat: "24/7",  label: "automation running" },

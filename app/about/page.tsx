@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Shield, Zap, Users, Award } from "lucide-react";
 import { FinalCTA } from "@/components/FinalCTA";
 import { AboutValuesSection } from "@/components/AboutValuesSection";
 
@@ -14,7 +12,7 @@ const trustSignals = [
   { value: "50+", label: "Local businesses served" },
   { value: "98%", label: "Client retention rate" },
   { value: "200+", label: "Reviews generated for clients" },
-  { value: "48hrs", label: "Average time to launch" },
+  { value: "3–5 days", label: "Average time to launch" },
 ];
 
 export default function AboutPage() {
@@ -56,7 +54,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-[#FAF9F6] kairo-pattern">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
             Our Mission
@@ -86,25 +84,6 @@ export default function AboutPage() {
 
       {/* Values — client component for animations */}
       <AboutValuesSection />
-
-      {/* CTA */}
-      <section className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-[#1C1C1E] mb-4">
-            Ready to work together?
-          </h2>
-          <p className="text-lg text-[#1C1C1E]/60 mb-8">
-            Start with a free website audit — no strings attached.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-[#0F5132] text-white font-bold text-base hover:bg-[#16733f] transition-colors shadow-lg shadow-[#0F5132]/20"
-          >
-            Get a Free Website Audit
-            <ArrowRight size={18} />
-          </Link>
-        </div>
-      </section>
 
       <FinalCTA />
     </div>

@@ -21,8 +21,8 @@ const pairs = [
     problem:
       "Your website looks dated, loads slowly, and quietly sends visitors elsewhere.",
     solution:
-      "A conversion-focused site built by AI, refined by our team — live in 48 hours.",
-    stat: "48hrs",
+      "A conversion-focused site built by AI, refined by our team — live in 3–5 days.",
+    stat: "3–5 days",
     statNote: "from brief to fully live site",
   },
   {

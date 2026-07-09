@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { motion, animate } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { EASE, VIEWPORT } from "@/lib/motion";
-import { usePrefersReducedMotion } from "@/lib/hooks";
 
 const JOB_PRESETS = [150, 300, 500, 1000, 1500, 2500];
 const WEEKS_PER_YEAR = 52;
@@ -25,37 +24,18 @@ export function RevenueLeakCalculator() {
   const [missedCalls, setMissedCalls] = useState<number>(PERIODS.week.defaultVal);
   const [preset, setPreset] = useState<number | "custom">(500);
   const [customValue, setCustomValue] = useState("");
-  const [display, setDisplay] = useState(0);
-  const reduced = usePrefersReducedMotion();
-  const prevRef = useRef(0);
   const customRef = useRef<HTMLInputElement>(null);
 
   const jobValue =
     preset === "custom" ? Math.max(0, Number(customValue) || 0) : preset;
-  // Normalize the chosen input period to a weekly figure, then base month/year on it
+  // Normalize the chosen input period to a weekly figure, then base month/year on
+  // it so week → month → year always stay in sync. Computed directly on every
+  // render, so the numbers update instantly with the inputs.
   const weeklyCalls = missedCalls * PERIODS[period].toWeek;
   const weekly = weeklyCalls * jobValue * BOOKING_RATE;
-  const monthly = Math.round(weekly * WEEKS_PER_MONTH);
-
-  // Derived from the single animated `display` (monthly) to keep all three in sync
-  const displayMonth = display;
-  const displayWeek = Math.round(display / WEEKS_PER_MONTH);
-  const displayYear = Math.round(display * 12);
-
-  useEffect(() => {
-    if (reduced) {
-      setDisplay(monthly);
-      prevRef.current = monthly;
-      return;
-    }
-    const controls = animate(prevRef.current, monthly, {
-      duration: 0.6,
-      ease: "easeOut",
-      onUpdate: (v) => setDisplay(Math.round(v)),
-    });
-    prevRef.current = monthly;
-    return () => controls.stop();
-  }, [monthly, reduced]);
+  const displayWeek = Math.round(weekly);
+  const displayMonth = Math.round(weekly * WEEKS_PER_MONTH);
+  const displayYear = Math.round(weekly * WEEKS_PER_YEAR);
 
   const changePeriod = (p: Period) => {
     setPeriod(p);

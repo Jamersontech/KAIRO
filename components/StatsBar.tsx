@@ -11,10 +11,13 @@ interface StatItem {
   value: number;
   suffix: string;
   label: string;
+  // When set, this text is shown verbatim instead of a counted-up number
+  // (for values that aren't a single number, e.g. a "3–5" range).
+  staticText?: string;
 }
 
 const stats: StatItem[] = [
-  { value: 48,  suffix: "hrs",  label: "Average website launch time" },
+  { staticText: "3–5", value: 5, suffix: "days", label: "Average website launch time" },
   { value: 40,  suffix: "%",    label: "Average lead increase in 90 days" },
   { value: 200, suffix: "+",    label: "Google reviews generated" },
   { value: 50,  suffix: "+",    label: "Local businesses served" },
@@ -28,6 +31,7 @@ function CountUp({ item }: { item: StatItem }) {
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
+    if (item.staticText) return;
     if (!inView) return;
     if (reduced) {
       setDisplay(item.value);
@@ -47,11 +51,11 @@ function CountUp({ item }: { item: StatItem }) {
     };
 
     requestAnimationFrame(tick);
-  }, [inView, item.value, reduced]);
+  }, [inView, item.value, reduced, item.staticText]);
 
   return (
     <span ref={ref} className="tabular-nums">
-      {item.prefix ?? ""}{display}
+      {item.staticText ?? `${item.prefix ?? ""}${display}`}
     </span>
   );
 }

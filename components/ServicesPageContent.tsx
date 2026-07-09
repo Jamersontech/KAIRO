@@ -12,7 +12,7 @@ const services = [
   {
     num: "01", id: "websites", icon: Globe, color: "#0F5132",
     title: "AI-Built Websites",
-    headline: "A conversion-ready website. Live in 48 hours.",
+    headline: "A conversion-ready website. Live in 3–5 days.",
     description: "Your website is your hardest-working salesperson — open 24/7, making a first impression before you ever pick up the phone. We build it right the first time using AI-assisted design refined by our team, so every element earns its place.",
     steps: [
       { title: "Strategy Call", body: "We learn your business, your clients, and your goals. No templates — everything starts from scratch." },
@@ -20,7 +20,7 @@ const services = [
       { title: "SEO & Launch", body: "Meta tags, structured data, and Google Search Console configured before go-live so you start ranking from day one." },
       { title: "Ongoing Optimization", body: "We monitor performance, run A/B tests on CTAs, and make updates so your site keeps improving." },
     ],
-    outcomes: ["Go live in 48 hours","Mobile-first, blazing-fast performance","Conversion-focused copywriting included","On-page SEO configured at launch","Unlimited revisions (Growth & Full Stack)","Integrated contact forms and booking"],
+    outcomes: ["Go live in 3–5 days","Mobile-first, blazing-fast performance","Conversion-focused copywriting included","On-page SEO configured at launch","Unlimited revisions (Growth & Full Stack)","Integrated contact forms and booking"],
     dark: false,
   },
   {
