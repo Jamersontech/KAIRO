@@ -3,6 +3,7 @@ import { Calendar, Shield, Zap, TrendingUp, Star } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import { AnimatedDotGrid } from "@/components/AnimatedDotGrid";
 import { CalendlyButton } from "@/components/CalendlyButton";
+import { VoiceAgentButton } from "@/components/VoiceAgentButton";
 
 export const metadata: Metadata = {
   title: "Free Website Audit — Kairo",
@@ -122,10 +123,14 @@ export default function ContactPage() {
                 <p className="text-sm text-white/65 leading-relaxed mb-4">
                   Skip the form and book a 30-minute strategy call directly. We&apos;ll run through your situation live.
                 </p>
-                <CalendlyButton className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#0F5132] text-sm font-bold hover:bg-[#FAF9F6] transition-colors">
-                  <Calendar size={14} />
-                  Book a Strategy Call
-                </CalendlyButton>
+                <div className="flex flex-wrap items-center gap-3">
+                  <CalendlyButton className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#0F5132] text-sm font-bold hover:bg-[#FAF9F6] transition-colors">
+                    <Calendar size={14} />
+                    Book a Strategy Call
+                  </CalendlyButton>
+                  {/* Self-hides until the Vapi voice agent is configured */}
+                  <VoiceAgentButton />
+                </div>
               </div>
 
               {/* Trust line */}
