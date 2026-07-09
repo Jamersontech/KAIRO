@@ -2,20 +2,24 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Loader2, ExternalLink } from "lucide-react";
+import {
+  Loader2, ArrowRight, Sparkle,
+  Globe, ClipboardList, Mail, Star, BarChart3, MessageCircle,
+  PhoneMissed, Headphones, ClipboardCheck, MessagesSquare, CalendarCheck,
+  ShieldCheck, Bell, Video, Zap, Megaphone, Repeat, TrendingUp, Sparkles,
+  CalendarClock, Headset,
+  type LucideIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import { EASE } from "@/lib/motion";
+import type { PricingTier } from "@/config/site";
 
-interface PricingTier {
-  id: string;
-  name: string;
-  price: string;
-  setup: string;
-  period: string;
-  description: string;
-  highlight: boolean;
-  features: string[];
-  cta: string;
-}
+const ICONS: Record<string, LucideIcon> = {
+  Globe, ClipboardList, Mail, Star, BarChart3, MessageCircle,
+  PhoneMissed, Headphones, ClipboardCheck, MessagesSquare, CalendarCheck,
+  ShieldCheck, Bell, Video, Zap, Megaphone, Repeat, TrendingUp, Sparkles,
+  CalendarClock, Headset,
+};
 
 export function PricingCard({ tier, index }: { tier: PricingTier; index: number }) {
   const [loading, setLoading] = useState(false);
@@ -44,92 +48,129 @@ export function PricingCard({ tier, index }: { tier: PricingTier; index: number 
   };
 
   const isContactTier = tier.id === "full-stack";
+  const hot = tier.highlight;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: EASE }}
+      whileHover={{ y: -5, transition: { duration: 0.25, ease: "easeOut" } }}
       className={cn(
-        "relative flex flex-col rounded-2xl p-8 border transition-all duration-300",
-        tier.highlight
-          ? "bg-[#0F5132] border-[#0F5132] shadow-xl shadow-[#0F5132]/20 hover:shadow-2xl hover:shadow-[#0F5132]/35"
-          : "bg-white border-[#1C1C1E]/8 shadow-sm hover:shadow-xl hover:shadow-[#0F5132]/15 hover:border-[#0F5132]/25"
+        "relative flex flex-col rounded-3xl p-8 border transition-colors duration-300",
+        hot
+          ? "bg-[#12140F] border-[#C9A24B]/50 shadow-2xl shadow-[#0F5132]/25 lg:-mt-6"
+          : "bg-[#111113] border-white/[0.08] hover:border-white/20"
       )}
     >
-      {tier.highlight && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-          <span className="inline-flex px-4 py-1 rounded-full bg-[#C9A24B] text-white text-xs font-bold tracking-wide shadow-sm">
+      {/* Gold top hairline on the popular card */}
+      {hot && (
+        <div className="absolute top-0 inset-x-0 h-[2px] rounded-t-3xl bg-gradient-to-r from-transparent via-[#C9A24B] to-transparent" />
+      )}
+      {hot && (
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#C9A24B] text-[#0D0D0F] text-xs font-black tracking-wide shadow-lg">
+            <Sparkle size={11} className="fill-[#0D0D0F]" />
             Most Popular
           </span>
         </div>
       )}
 
+      {/* Header */}
       <div className="mb-6">
-        <h3 className={cn("text-lg font-bold mb-1", tier.highlight ? "text-white" : "text-[#1C1C1E]")}>
-          {tier.name}
-        </h3>
-        <p className={cn("text-sm leading-relaxed", tier.highlight ? "text-white/70" : "text-[#1C1C1E]/60")}>
-          {tier.description}
+        <h3 className="text-xl font-black text-white mb-2">{tier.name}</h3>
+        <p className={cn("text-sm font-semibold mb-2", hot ? "text-[#E8C87A]" : "text-[#C9A24B]")}>
+          {tier.purpose}
         </p>
+        <p className="text-sm leading-relaxed text-white/45">{tier.tagline}</p>
       </div>
 
       {/* Price */}
-      <div className="mb-8">
-        <div className="flex items-baseline gap-1 mb-1">
-          <span className={cn("text-4xl font-bold", tier.highlight ? "text-white" : "text-[#1C1C1E]")}>
-            {tier.price}
-          </span>
-          <span className={cn("text-sm", tier.highlight ? "text-white/60" : "text-[#1C1C1E]/50")}>
-            {tier.period}
-          </span>
+      <div className="mb-7 pb-7 border-b border-white/[0.07]">
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-5xl font-black text-white tracking-[-0.02em]">{tier.price}</span>
+          <span className="text-base text-white/40">{tier.period}</span>
         </div>
-        <p className={cn("text-xs", tier.highlight ? "text-white/45" : "text-[#1C1C1E]/40")}>
-          + {tier.setup} one-time setup fee
+        <p className="text-xs text-white/40 mt-2">
+          + {tier.setup} one-time setup
         </p>
       </div>
 
-      <ul className="space-y-3 mb-8 flex-1">
-        {tier.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-3">
-            <Check size={15} className={cn("mt-0.5 flex-shrink-0", tier.highlight ? "text-[#C9A24B]" : "text-[#0F5132]")} />
-            <span className={cn("text-sm leading-snug", tier.highlight ? "text-white/80" : "text-[#1C1C1E]/70")}>
-              {feature}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      {err && (
-        <p className={cn("text-xs mb-3 text-center", tier.highlight ? "text-red-300" : "text-red-500")}>
-          {err}
+      {/* Inherit note */}
+      {tier.inherits && (
+        <p className="text-xs font-bold text-white/70 mb-5">
+          Everything in {tier.inherits},{" "}
+          <span className={hot ? "text-[#E8C87A]" : "text-[#C9A24B]"}>plus:</span>
         </p>
       )}
+
+      {/* Features */}
+      <ul className="space-y-4 mb-8 flex-1">
+        {tier.features.map((f) => {
+          const Icon = ICONS[f.icon] ?? Star;
+          return (
+            <li key={f.name} className="flex items-start gap-3">
+              <span
+                className={cn(
+                  "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center mt-0.5",
+                  hot ? "bg-[#C9A24B]/15" : "bg-white/[0.06]"
+                )}
+              >
+                <Icon size={15} className={hot ? "text-[#C9A24B]" : "text-[#C9A24B]"} />
+              </span>
+              <span>
+                <span className="block text-sm font-semibold text-white leading-snug">{f.name}</span>
+                <span className="block text-xs text-white/45 leading-snug mt-0.5">{f.benefit}</span>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* Main result */}
+      <div
+        className={cn(
+          "rounded-xl px-4 py-3 mb-6 border",
+          hot ? "bg-[#0F5132]/25 border-[#0F5132]/40" : "bg-white/[0.03] border-white/[0.06]"
+        )}
+      >
+        <span className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#C9A24B] mb-1">
+          The result
+        </span>
+        <span className="block text-sm font-semibold text-white/85 leading-snug">
+          {tier.mainResult}
+        </span>
+      </div>
+
+      {err && <p className="text-xs mb-3 text-center text-red-400">{err}</p>}
 
       {isContactTier ? (
         <a
           href="/contact"
-          className={cn(
-            "block text-center px-6 py-3.5 rounded-xl text-sm font-bold transition-colors duration-200",
-            tier.highlight ? "bg-white text-[#0F5132] hover:bg-[#FAF9F6]" : "bg-[#0F5132] text-white hover:bg-[#16733f]"
-          )}
+          className="group flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-bold transition-colors duration-200 bg-white/10 text-white border border-white/20 hover:bg-white/20"
         >
           {tier.cta}
+          <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
         </a>
       ) : (
         <button
           onClick={handleCheckout}
           disabled={loading}
           className={cn(
-            "flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-xl text-sm font-bold transition-colors duration-200 disabled:opacity-70",
-            tier.highlight ? "bg-white text-[#0F5132] hover:bg-[#FAF9F6]" : "bg-[#0F5132] text-white hover:bg-[#16733f]"
+            "group flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl text-sm font-bold transition-colors duration-200 disabled:opacity-70",
+            hot
+              ? "bg-[#C9A24B] text-[#0D0D0F] hover:bg-[#E8C87A]"
+              : "bg-[#0F5132] text-white hover:bg-[#16733f]"
           )}
         >
           {loading ? (
-            <><Loader2 size={15} className="animate-spin" /> Processing...</>
+            <><Loader2 size={15} className="animate-spin" /> Processing…</>
           ) : (
-            <><ExternalLink size={14} /> {tier.cta}</>
+            <>
+              {tier.cta}
+              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+            </>
           )}
         </button>
       )}
