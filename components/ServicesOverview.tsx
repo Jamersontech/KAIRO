@@ -57,7 +57,7 @@ const services = [
       "Re-engagement flows for cold leads",
       "CRM sync so nothing slips through",
     ],
-    color: "#1C1C1E",
+    color: "#D97757",
     href: "/services#automation",
   },
   {
@@ -232,7 +232,7 @@ function AutomationVisual() {
               <div className="flex-1 min-w-0">
                 <div className="text-[11px] font-semibold text-white truncate">{s.label}</div>
               </div>
-              <span className="text-[9px] font-mono text-white/30 flex-shrink-0">{s.time}</span>
+              <span className="text-[9px] font-mono text-white/40 flex-shrink-0">{s.time}</span>
             </motion.div>
             {i < steps.length - 1 && (
               <motion.div
@@ -249,7 +249,7 @@ function AutomationVisual() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1 }}
-        className="mt-3 text-center text-[9px] text-white/25 font-mono"
+        className="mt-3 text-center text-[9px] text-white/35 font-mono"
       >
         Runs for every lead, forever.
       </motion.p>
@@ -354,7 +354,7 @@ export function ServicesOverview() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.35, ease }}
-            className="text-lg text-white/45 leading-relaxed"
+            className="text-lg text-white/55 leading-relaxed"
           >
             Kairo bundles the digital infrastructure that enterprise companies pay
             six figures for — and delivers it to local businesses for a fraction of the cost.
@@ -391,7 +391,7 @@ export function ServicesOverview() {
                   >
                     <Icon
                       size={15}
-                      style={{ color: active === i ? s.color : "rgba(255,255,255,0.4)" }}
+                      style={{ color: active === i ? s.color : "rgba(255,255,255,0.5)" }}
                     />
                   </div>
                   <div className="min-w-0">
@@ -404,7 +404,7 @@ export function ServicesOverview() {
                         {s.title}
                       </span>
                     </div>
-                    <p className="text-xs text-white/30 leading-snug line-clamp-1 hidden lg:block">
+                    <p className="text-xs text-white/40 leading-snug line-clamp-1 hidden lg:block">
                       {s.tagline}
                     </p>
                   </div>
@@ -430,7 +430,7 @@ export function ServicesOverview() {
                   <div className="mb-5">
                     <div
                       className="text-[5rem] font-black leading-none select-none mb-1"
-                      style={{ color: `${svc.color}10` }}
+                      style={{ color: `${svc.color}40` }}
                     >
                       {svc.num}
                     </div>
@@ -440,7 +440,7 @@ export function ServicesOverview() {
                     </p>
                   </div>
 
-                  <p className="text-sm text-white/50 leading-relaxed mb-6">
+                  <p className="text-sm text-white/62 leading-relaxed mb-6">
                     {svc.description}
                   </p>
 
@@ -451,7 +451,7 @@ export function ServicesOverview() {
                         initial={{ opacity: 0, x: -6 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.07, ease }}
-                        className="flex items-center gap-2.5 text-sm text-white/60"
+                        className="flex items-center gap-2.5 text-sm text-white/72"
                       >
                         <div
                           className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"

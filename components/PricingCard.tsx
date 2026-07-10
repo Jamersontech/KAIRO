@@ -48,7 +48,6 @@ export function PricingCard({ tier, index }: { tier: PricingTier; index: number 
     }
   };
 
-  const isContactTier = tier.id === "full-stack";
   const hot = tier.highlight;
 
   return (
@@ -160,35 +159,25 @@ export function PricingCard({ tier, index }: { tier: PricingTier; index: number 
 
       {err && <p className="text-xs mb-3 text-center text-red-400">{err}</p>}
 
-      {isContactTier ? (
-        <a
-          href="/contact"
-          className="group flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-bold transition-colors duration-200 bg-white/10 text-white border border-white/20 hover:bg-white/20"
-        >
-          {tier.cta}
-          <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
-        </a>
-      ) : (
-        <button
-          onClick={handleCheckout}
-          disabled={loading}
-          className={cn(
-            "group flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl text-sm font-bold transition-colors duration-200 disabled:opacity-70",
-            hot
-              ? "bg-[#C9A24B] text-[#0D0D0F] hover:bg-[#E8C87A]"
-              : "bg-[#0F5132] text-white hover:bg-[#16733f]"
-          )}
-        >
-          {loading ? (
-            <><Loader2 size={15} className="animate-spin" /> Processing…</>
-          ) : (
-            <>
-              {tier.cta}
-              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
-            </>
-          )}
-        </button>
-      )}
+      <button
+        onClick={handleCheckout}
+        disabled={loading}
+        className={cn(
+          "group flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl text-sm font-bold transition-colors duration-200 disabled:opacity-70",
+          hot
+            ? "bg-[#C9A24B] text-[#0D0D0F] hover:bg-[#E8C87A]"
+            : "bg-[#0F5132] text-white hover:bg-[#16733f]"
+        )}
+      >
+        {loading ? (
+          <><Loader2 size={15} className="animate-spin" /> Processing…</>
+        ) : (
+          <>
+            {tier.cta}
+            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+          </>
+        )}
+      </button>
     </motion.div>
   );
 }

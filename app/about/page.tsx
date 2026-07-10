@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FinalCTA } from "@/components/FinalCTA";
 import { AboutValuesSection } from "@/components/AboutValuesSection";
+import { AnimatedDotGrid } from "@/components/AnimatedDotGrid";
 
 export const metadata: Metadata = {
   title: "About",
@@ -19,8 +20,9 @@ export default function AboutPage() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="py-24 bg-[#FAF9F6] kairo-pattern">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden py-24 bg-[#FAF9F6] kairo-pattern">
+        <AnimatedDotGrid />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
@@ -54,8 +56,9 @@ export default function AboutPage() {
       </section>
 
       {/* Mission */}
-      <section className="py-24 bg-[#FAF9F6] kairo-pattern">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden py-24 bg-[#FAF9F6] kairo-pattern">
+        <AnimatedDotGrid />
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A24B] mb-3 block">
             Our Mission
           </span>

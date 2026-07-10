@@ -182,7 +182,7 @@ export const pricingConfig: { tiers: PricingTier[] } = {
           example: "Message your account manager directly and get an answer the same day." },
       ],
       mainResult: "A complete AI growth system, actively managed and improved every month.",
-      cta: "Talk to Us",
+      cta: "Get Started",
     },
   ],
 };

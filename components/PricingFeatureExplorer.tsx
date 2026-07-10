@@ -65,8 +65,8 @@ function FeatureCard({
       }
     >
       <div className="flex items-center gap-3 mb-4">
-        <span className="flex-shrink-0 w-11 h-11 rounded-xl bg-[#C9A24B]/12 flex items-center justify-center">
-          <Icon size={20} className="text-[#C9A24B]" />
+        <span className="relative flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center bg-gradient-to-br from-[#C9A24B]/25 to-[#C9A24B]/[0.04] ring-1 ring-inset ring-[#C9A24B]/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <Icon size={19} strokeWidth={2} className="text-[#E8C87A]" />
         </span>
         <div className="min-w-0">
           <h3 className="text-base font-black text-white leading-tight">{feature.name}</h3>
