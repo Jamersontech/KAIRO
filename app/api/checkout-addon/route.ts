@@ -23,14 +23,29 @@ function findPlan(planId: string) {
 // price_data from config/site.ts, so adding/editing a service never needs
 // dashboard changes. Mirrors /api/checkout's subscription + 30-day trial
 // pattern (setup fee due now, first monthly charge ~30 days out).
+//
+// Accepts one or several services in a single build: pass `planIds: string[]`
+// (or a single `planId`). All monthly prices become one multi-item
+// subscription; all setup fees land on the first invoice (due now).
 export async function POST(req: NextRequest) {
-  const { planId } = await req.json().catch(() => ({}));
+  const body = await req.json().catch(() => ({}));
+  const requested: string[] = Array.isArray(body.planIds)
+    ? body.planIds
+    : body.planId
+    ? [body.planId]
+    : [];
 
-  const found = planId ? findPlan(planId) : null;
-  if (!found) {
+  // Dedupe while preserving order.
+  const planIds = [...new Set(requested.filter((p) => typeof p === "string"))];
+
+  if (planIds.length === 0) {
+    return NextResponse.json({ error: "No services selected" }, { status: 400 });
+  }
+
+  const resolved = planIds.map(findPlan);
+  if (resolved.some((r) => r === null)) {
     return NextResponse.json({ error: "Invalid service" }, { status: 400 });
   }
-  const { service, plan } = found;
 
   const stripeKeySet =
     process.env.STRIPE_SECRET_KEY && !process.env.STRIPE_SECRET_KEY.includes("REPLACE");
@@ -43,11 +58,14 @@ export async function POST(req: NextRequest) {
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3001";
-  const productName =
-    service.plans.length > 1 ? `${service.name} — ${plan.label}` : service.name;
 
-  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
-    {
+  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+  for (const entry of resolved) {
+    const { service, plan } = entry!;
+    const productName =
+      service.plans.length > 1 ? `${service.name} — ${plan.label}` : service.name;
+
+    lineItems.push({
       price_data: {
         currency: "usd",
         product_data: { name: productName },
@@ -55,18 +73,18 @@ export async function POST(req: NextRequest) {
         recurring: { interval: "month" },
       },
       quantity: 1,
-    },
-  ];
-
-  if (plan.setup > 0) {
-    lineItems.push({
-      price_data: {
-        currency: "usd",
-        product_data: { name: `${productName} — Setup` },
-        unit_amount: Math.round(plan.setup * 100),
-      },
-      quantity: 1,
     });
+
+    if (plan.setup > 0) {
+      lineItems.push({
+        price_data: {
+          currency: "usd",
+          product_data: { name: `${productName} — Setup` },
+          unit_amount: Math.round(plan.setup * 100),
+        },
+        quantity: 1,
+      });
+    }
   }
 
   const session = await getStripe().checkout.sessions.create({
