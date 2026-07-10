@@ -186,3 +186,122 @@ export const pricingConfig: { tiers: PricingTier[] } = {
     },
   ],
 };
+
+// ─────────────────────────────────────────────
+//  À LA CARTE — Individual services, purchasable on their own.
+//  Checkout builds Stripe prices on the fly (see /api/checkout-addon),
+//  so no Stripe dashboard setup is needed when these change.
+// ─────────────────────────────────────────────
+
+export interface AddonPlan {
+  id: string; // stable id sent to checkout
+  label: string; // shown on the toggle, e.g. "Starter"
+  setup: number; // dollars, one-time
+  monthly: number; // dollars, per month
+  bullets: string[];
+}
+
+export interface AddonService {
+  id: string;
+  icon: string; // maps to a lucide icon in AddonServiceCard
+  name: string;
+  description: string;
+  plans: AddonPlan[]; // 1 entry for a single-price service, 2+ for a chooser
+}
+
+export const addonServicesConfig: { services: AddonService[] } = {
+  services: [
+    {
+      id: "website",
+      icon: "Globe",
+      name: "Professional Website",
+      description:
+        "A modern, mobile-friendly website that helps your business establish an online presence and capture new customers.",
+      plans: [
+        {
+          id: "starter-website",
+          label: "Starter",
+          setup: 400,
+          monthly: 47,
+          bullets: [
+            "Up to 5 pages",
+            "Mobile-friendly design",
+            "Contact forms",
+            "Basic SEO setup",
+            "Website hosting and maintenance",
+          ],
+        },
+        {
+          id: "advanced-website",
+          label: "Advanced",
+          setup: 600,
+          monthly: 97,
+          bullets: [
+            "Up to 10 pages",
+            "Custom design improvements",
+            "Advanced sections and layouts",
+            "Conversion-focused design",
+            "Website hosting and maintenance",
+            "Ongoing updates and improvements",
+          ],
+        },
+      ],
+    },
+    {
+      id: "ai-receptionist",
+      icon: "Headphones",
+      name: "AI Receptionist",
+      description:
+        "Never miss another customer. An AI receptionist answers calls, handles questions, and helps book appointments 24/7.",
+      plans: [{ id: "ai-receptionist", label: "Standard", setup: 297, monthly: 197, bullets: [] }],
+    },
+    {
+      id: "ai-chatbot",
+      icon: "Bot",
+      name: "AI Website Chatbot",
+      description:
+        "Turn website visitors into leads with an AI assistant that answers questions instantly and helps customers take the next step.",
+      plans: [{ id: "ai-chatbot", label: "Standard", setup: 197, monthly: 47, bullets: [] }],
+    },
+    {
+      id: "missed-call-text",
+      icon: "PhoneMissed",
+      name: "Missed Call Text Back",
+      description:
+        "When you miss a call, customers automatically receive a text so you don't lose the opportunity.",
+      plans: [{ id: "missed-call-text", label: "Standard", setup: 97, monthly: 29, bullets: [] }],
+    },
+    {
+      id: "review-automation",
+      icon: "Star",
+      name: "Google Review Automation",
+      description:
+        "Automatically request reviews from happy customers and strengthen your online reputation.",
+      plans: [{ id: "review-automation", label: "Standard", setup: 97, monthly: 29, bullets: [] }],
+    },
+    {
+      id: "online-booking",
+      icon: "CalendarCheck",
+      name: "Online Booking",
+      description:
+        "Let customers schedule appointments instantly without waiting for a response.",
+      plans: [{ id: "online-booking", label: "Standard", setup: 97, monthly: 29, bullets: [] }],
+    },
+    {
+      id: "reminders-followup",
+      icon: "MessagesSquare",
+      name: "Automated Reminders & Follow-Up",
+      description:
+        "Reduce missed appointments and stay connected with automatic text and email follow-ups.",
+      plans: [{ id: "reminders-followup", label: "Standard", setup: 197, monthly: 47, bullets: [] }],
+    },
+    {
+      id: "reactivation",
+      icon: "Repeat",
+      name: "Customer Reactivation Campaigns",
+      description:
+        "Reconnect with past customers and bring them back with automated campaigns.",
+      plans: [{ id: "reactivation", label: "Standard", setup: 97, monthly: 29, bullets: [] }],
+    },
+  ],
+};

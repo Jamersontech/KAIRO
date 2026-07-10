@@ -4,6 +4,7 @@ import { pricingConfig } from "@/config/site";
 import { FinalCTA } from "@/components/FinalCTA";
 import { PricingFAQ } from "@/components/PricingFAQ";
 import { PricingFeatureExplorer } from "@/components/PricingFeatureExplorer";
+import { AddonServicesSection } from "@/components/AddonServicesSection";
 import { RevenueLeakCalculator } from "@/components/RevenueLeakCalculator";
 import { AnimatedDotGrid } from "@/components/AnimatedDotGrid";
 import { Check, Minus } from "lucide-react";
@@ -71,7 +72,7 @@ export default function PricingPage() {
       </section>
 
       {/* ── Cards ── */}
-      <section className="pb-24 bg-[#0D0D0F]">
+      <section id="packages" className="scroll-mt-24 pb-24 bg-[#0D0D0F]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-6 items-start pt-6">
             {tiers.map((tier, i) => (
@@ -155,6 +156,9 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+
+      {/* ── À la carte services ── */}
+      <AddonServicesSection />
 
       {/* ── Revenue leak calculator ── */}
       <RevenueLeakCalculator />
