@@ -69,6 +69,13 @@ export async function POST(req: NextRequest) {
     cancel_url: `${siteUrl}/pricing`,
     allow_promotion_codes: true,
     billing_address_collection: "required",
+    // One-time line items (the setup fee) are still invoiced immediately at
+    // checkout regardless of trial — only the recurring monthly price is
+    // deferred. This gives customers: pay setup fee today, first monthly
+    // charge ~30 days later.
+    subscription_data: {
+      trial_period_days: 30,
+    },
   });
 
   return NextResponse.json({ url: session.url });
