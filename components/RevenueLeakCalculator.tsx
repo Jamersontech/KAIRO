@@ -200,9 +200,8 @@ export function RevenueLeakCalculator() {
               </div>
 
               <p className="text-[10px] text-white/25 mb-8 leading-relaxed">
-                Assumes 25% of answered calls become booked jobs. Monthly and yearly
-                figures use 52 weeks ÷ 12 ≈ 4.3 weeks per month, so the annual total
-                reflects a full 52-week year — not 48.
+                A rough estimate — it assumes about 1 in 4 answered calls turns into a
+                booked job. Your numbers may vary.
               </p>
 
               <Link

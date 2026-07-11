@@ -2,10 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Loader2, ArrowRight, X, Sparkles } from "lucide-react";
+import { Loader2, ArrowRight, X, Sparkles } from "lucide-react";
 import { addonServicesConfig, pricingConfig, type AddonPlan, type AddonService } from "@/config/site";
 import { AddonServiceCard } from "@/components/AddonServiceCard";
-import { CalendlyButton } from "@/components/CalendlyButton";
 import { EASE, VIEWPORT } from "@/lib/motion";
 
 interface ResolvedItem {
@@ -135,26 +134,6 @@ export function AddonServicesSection() {
             </div>
           </div>
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={VIEWPORT}
-          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-          className="mt-14 rounded-3xl bg-[#111113] border border-white/[0.08] px-8 py-10 sm:px-12 sm:py-12 text-center"
-        >
-          <h3 className="text-2xl font-black text-white mb-2">
-            Not sure what your business needs?
-          </h3>
-          <p className="text-white/50 leading-relaxed max-w-lg mx-auto mb-7">
-            Book a free consultation and we&apos;ll recommend the right setup based on your goals.
-          </p>
-          <CalendlyButton className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#0F5132] text-white font-bold text-sm hover:bg-[#16733f] transition-colors duration-200">
-            <Calendar size={15} />
-            Book a Consultation
-          </CalendlyButton>
-        </motion.div>
       </div>
 
       {/* Sticky checkout bar — mobile */}
@@ -323,7 +302,7 @@ function BuildSummary({
           )}
         </button>
         <p className="text-[11px] text-white/30 text-center mt-3">
-          First month free · Cancel anytime
+          Setup billed today · first month free · cancel anytime
         </p>
       </div>
     </div>

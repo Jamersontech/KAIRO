@@ -165,11 +165,11 @@ export default function PricingPage() {
       {/* ── À la carte services ── */}
       <AddonServicesSection />
 
-      {/* ── Revenue leak calculator ── */}
-      <RevenueLeakCalculator />
-
       {/* ── Every feature, explained (interactive) ── */}
       <PricingFeatureExplorer />
+
+      {/* ── Revenue leak calculator ── */}
+      <RevenueLeakCalculator />
 
       {/* ── FAQ ── */}
       <section className="py-24 bg-[#111113] border-t border-white/[0.05]">

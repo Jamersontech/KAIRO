@@ -150,10 +150,10 @@ export function Hero() {
           className="mt-14 pt-6 border-t border-white/8 flex flex-wrap items-center gap-x-10 gap-y-4"
         >
           {[
-            { stat: "3–5 days", label: "website launch" },
-            { stat: "40%",   label: "more leads on avg." },
+            { stat: "3–5 days", label: "to launch your site" },
+            { stat: "40%",   label: "more leads on average" },
             { stat: "200+",  label: "reviews generated" },
-            { stat: "24/7",  label: "automation running" },
+            { stat: "24/7",  label: "always working for you" },
           ].map((item) => (
             <div key={item.label} className="flex items-baseline gap-2">
               <span className="text-2xl font-bold text-[#C9A24B]">{item.stat}</span>
