@@ -120,11 +120,13 @@ export function PricingCard({ tier, index }: { tier: PricingTier; index: number 
               >
                 <span
                   className={cn(
-                    "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center mt-0.5",
-                    hot ? "bg-[#C9A24B]/15" : "bg-white/[0.06]"
+                    "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center mt-0.5 ring-1 ring-inset",
+                    hot
+                      ? "bg-gradient-to-br from-[#C9A24B]/25 to-[#C9A24B]/[0.05] ring-[#C9A24B]/25"
+                      : "bg-gradient-to-br from-[#C9A24B]/15 to-transparent ring-[#C9A24B]/15"
                   )}
                 >
-                  <Icon size={15} className="text-[#C9A24B]" />
+                  <Icon size={15} className="text-[#E8C87A]" />
                 </span>
                 <span className="flex-1">
                   <span className="flex items-center gap-1 text-sm font-semibold text-white leading-snug">

@@ -191,7 +191,10 @@ export function HowItWorksContent() {
                   <div className="flex items-center gap-3 mb-6">
                     <div
                       className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                      style={{ backgroundColor: `${step.color}20` }}
+                      style={{
+                        background: `linear-gradient(135deg, ${step.color}35, ${step.color}08)`,
+                        boxShadow: `inset 0 0 0 1px ${step.color}40, inset 0 1px 0 rgba(255,255,255,0.08)`,
+                      }}
                     >
                       <Icon size={22} style={{ color: step.color }} />
                     </div>

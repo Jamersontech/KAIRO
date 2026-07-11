@@ -74,11 +74,13 @@ export function AddonServiceCard({
       <div className="flex items-start justify-between mb-4">
         <span
           className={cn(
-            "w-10 h-10 rounded-xl flex items-center justify-center transition-colors duration-300",
-            isSelected ? "bg-[#C9A24B]/20" : "bg-white/[0.06]"
+            "w-10 h-10 rounded-xl flex items-center justify-center ring-1 ring-inset transition-colors duration-300",
+            isSelected
+              ? "bg-gradient-to-br from-[#C9A24B]/30 to-[#C9A24B]/[0.06] ring-[#C9A24B]/35"
+              : "bg-gradient-to-br from-[#C9A24B]/15 to-transparent ring-[#C9A24B]/15"
           )}
         >
-          <Icon size={18} className="text-[#C9A24B]" />
+          <Icon size={18} className="text-[#E8C87A]" />
         </span>
       </div>
 

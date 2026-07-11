@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { PricingCard } from "@/components/PricingCard";
+import { CheckoutSuccessBanner } from "@/components/CheckoutSuccessBanner";
 import { pricingConfig } from "@/config/site";
 import { FinalCTA } from "@/components/FinalCTA";
 import { PricingFAQ } from "@/components/PricingFAQ";
@@ -37,6 +39,11 @@ export default function PricingPage() {
 
   return (
     <div>
+      {/* Post-checkout confirmation (reads ?success=1 from Stripe's redirect) */}
+      <Suspense fallback={null}>
+        <CheckoutSuccessBanner />
+      </Suspense>
+
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 bg-[#0D0D0F] overflow-hidden">
         <AnimatedDotGrid isDark />
@@ -80,7 +87,8 @@ export default function PricingPage() {
             ))}
           </div>
           <p className="text-center text-sm text-white/30 mt-10">
-            All plans are month-to-month. The setup fee is a one-time charge collected at onboarding.
+            All plans are month-to-month. The one-time setup fee is due at checkout —
+            your first monthly bill starts 30 days later.
           </p>
         </div>
       </section>
