@@ -63,11 +63,6 @@ const jsonLd = {
   email: siteConfig.email,
   telephone: siteConfig.phone,
   areaServed: "US",
-  sameAs: [
-    siteConfig.social.instagram,
-    siteConfig.social.facebook,
-    siteConfig.social.linkedin,
-  ],
 };
 
 export default function RootLayout({

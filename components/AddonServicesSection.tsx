@@ -302,7 +302,7 @@ function BuildSummary({
           )}
         </button>
         <p className="text-[11px] text-white/30 text-center mt-3">
-          Setup billed today · first month free · cancel anytime
+          Billed today · cancel anytime · have a promo code? Enter it at checkout
         </p>
       </div>
     </div>

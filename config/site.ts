@@ -10,17 +10,12 @@ export const siteConfig = {
     "Kairo helps local businesses grow with AI-built websites, automated follow-up sequences, and Google review generation — all done for you.",
   url: "https://kairoagency.com",
   email: "hello@kairoagency.com",
-  phone: "(555) 000-0000",
+  phone: "(514) 224-8189",
   location: "Serving businesses nationwide",
   calendarUrl: "https://calendly.com/capombassisjames/30min",
   // Public "write a review" link for your Google Business Profile.
   // Override with NEXT_PUBLIC_GOOGLE_REVIEW_URL in .env.local.
   googleReviewUrl: "",
-  social: {
-    instagram: "https://instagram.com/kairoagency",
-    facebook: "https://facebook.com/kairoagency",
-    linkedin: "https://linkedin.com/company/kairoagency",
-  },
 };
 
 // ─────────────────────────────────────────────

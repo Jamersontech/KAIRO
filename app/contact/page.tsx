@@ -133,19 +133,6 @@ export default function ContactPage() {
                   <VoiceAgentButton />
                 </div>
               </div>
-
-              {/* Trust line */}
-              <div className="bg-white rounded-2xl border border-[#1C1C1E]/6 p-5 text-center">
-                <div className="flex justify-center gap-0.5 mb-2">
-                  {[1,2,3,4,5].map((s) => (
-                    <Star key={s} size={14} className="fill-[#C9A24B] text-[#C9A24B]" />
-                  ))}
-                </div>
-                <p className="text-xs text-[#1C1C1E]/55 leading-relaxed italic">
-                  &ldquo;The audit alone was worth it. They found three things we were doing wrong that we had no idea about.&rdquo;
-                </p>
-                <div className="text-xs font-semibold text-[#1C1C1E] mt-2">— Marcus T., Titan Plumbing</div>
-              </div>
             </div>
           </div>
         </div>

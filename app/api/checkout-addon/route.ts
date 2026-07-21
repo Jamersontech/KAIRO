@@ -21,8 +21,10 @@ function findPlan(planId: string) {
 
 // À la carte prices aren't pre-created in Stripe — they're built inline via
 // price_data from config/site.ts, so adding/editing a service never needs
-// dashboard changes. Mirrors /api/checkout's subscription + 30-day trial
-// pattern (setup fee due now, first monthly charge ~30 days out).
+// dashboard changes. Unlike the packages, à la carte has no automatic trial —
+// the monthly price(s) and setup fee(s) are all billed today. Customers can
+// still enter the KAIRO11 promo code at checkout (allow_promotion_codes) for
+// 30 days free on the recurring price; setup fees are unaffected.
 //
 // Accepts one or several services in a single build: pass `planIds: string[]`
 // (or a single `planId`). All monthly prices become one multi-item
@@ -94,9 +96,6 @@ export async function POST(req: NextRequest) {
     cancel_url: `${siteUrl}/pricing`,
     allow_promotion_codes: true,
     billing_address_collection: "required",
-    subscription_data: {
-      trial_period_days: 30,
-    },
   });
 
   return NextResponse.json({ url: session.url });

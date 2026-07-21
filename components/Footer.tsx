@@ -17,12 +17,6 @@ const legalLinks = [
   { href: "/terms", label: "Terms of Service" },
 ];
 
-const socials = [
-  { href: "instagram", label: "Instagram" },
-  { href: "facebook", label: "Facebook" },
-  { href: "linkedin", label: "LinkedIn" },
-] as const;
-
 export function Footer() {
   return (
     <footer className="relative bg-[#0D0D0F] border-t border-white/[0.06] overflow-hidden">
@@ -36,23 +30,10 @@ export function Footer() {
                 {siteConfig.name}
               </span>
             </Link>
-            <p className="text-sm text-white/40 leading-relaxed max-w-xs mb-8">
+            <p className="text-sm text-white/40 leading-relaxed max-w-xs">
               We help local businesses win more clients through AI-built websites,
               automated follow-up, and reputation systems that run without lifting a finger.
             </p>
-            <div className="flex items-center gap-6">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={siteConfig.social[s.href]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-underline text-[10px] font-semibold uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors duration-200"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Navigation */}
