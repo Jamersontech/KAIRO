@@ -67,7 +67,13 @@ export async function POST(req: NextRequest) {
     line_items: lineItems,
     success_url: `${siteUrl}/pricing?success=1`,
     cancel_url: `${siteUrl}/pricing`,
-    allow_promotion_codes: true,
+    // No allow_promotion_codes here: Stripe's native promo-code field
+    // discounts the WHOLE first invoice — including one-time line items
+    // like the setup fee above — with no way to exempt just the setup fee
+    // (Checkout Session line items don't expose a `discountable` flag; only
+    // raw Invoice/Subscription line items do, confirmed against the live API).
+    // Packages already get the 30-day-free trial unconditionally below, so
+    // there's nothing a promo code would add here anyway.
     billing_address_collection: "required",
     // One-time line items (the setup fee) are still invoiced immediately at
     // checkout regardless of trial — only the recurring monthly price is

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, ArrowRight, X, Sparkles } from "lucide-react";
+import { Loader2, ArrowRight, X, Sparkles, Tag } from "lucide-react";
 import { addonServicesConfig, pricingConfig, type AddonPlan, type AddonService } from "@/config/site";
 import { AddonServiceCard } from "@/components/AddonServiceCard";
 import { EASE, VIEWPORT } from "@/lib/motion";
@@ -36,6 +36,8 @@ export function AddonServicesSection() {
   const [selected, setSelected] = useState<Selection>({});
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  const [promoCode, setPromoCode] = useState("");
+  const [promoOpen, setPromoOpen] = useState(false);
 
   const items = useMemo(() => resolve(selected), [selected]);
   const monthlyTotal = items.reduce((s, i) => s + i.plan.monthly, 0);
@@ -61,7 +63,10 @@ export function AddonServicesSection() {
       const res = await fetch("/api/checkout-addon", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planIds: items.map((i) => i.plan.id) }),
+        body: JSON.stringify({
+          planIds: items.map((i) => i.plan.id),
+          promoCode: promoCode.trim() || undefined,
+        }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -101,6 +106,32 @@ export function AddonServicesSection() {
             Pick the services your business needs, see your total instantly, and check out —
             all at once. Every service can also be added to a package later.
           </p>
+
+          {/* Promo code — collapsed by default to stay out of the way */}
+          <div className="mt-5">
+            {promoOpen ? (
+              <div className="inline-flex items-center gap-2 max-w-xs">
+                <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#111113] border border-white/10 focus-within:border-[#C9A24B]/50 transition-colors duration-200">
+                  <Tag size={13} className="text-white/30 flex-shrink-0" />
+                  <input
+                    autoFocus
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                    placeholder="PROMO CODE"
+                    className="bg-transparent text-sm font-semibold tracking-wide text-white placeholder:text-white/25 outline-none w-32"
+                  />
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setPromoOpen(true)}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/35 hover:text-[#C9A24B] transition-colors duration-200"
+              >
+                <Tag size={12} />
+                Have a promo code?
+              </button>
+            )}
+          </div>
         </motion.div>
 
         <div className="lg:grid lg:grid-cols-[1fr_340px] lg:gap-8 lg:items-start">
@@ -302,7 +333,7 @@ function BuildSummary({
           )}
         </button>
         <p className="text-[11px] text-white/30 text-center mt-3">
-          Billed today · cancel anytime · have a promo code? Enter it at checkout
+          Billed today · cancel anytime
         </p>
       </div>
     </div>
